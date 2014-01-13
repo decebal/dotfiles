@@ -223,3 +223,7 @@ __git_flow_list_remote_branches ()
 if [ -z "`type -t __git_find_on_cmdline`" ]; then
 	alias __git_find_on_cmdline=__git_find_subcommand
 fi
+
+complete -F __git_flow_feature feature
+complete -F __git_flow_release release
+complete -F __git_flow_hotfix hotfix

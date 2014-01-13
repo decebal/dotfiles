@@ -28,3 +28,7 @@ alias gra='git remote add'
 alias grr='git remote rm'
 alias gpu='git pull'
 alias gcl='git clone'
+
+alias feature='git flow feature'
+alias release='git flow release'
+alias hotfix='git flow hotfix'
