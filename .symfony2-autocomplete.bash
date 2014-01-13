@@ -8,47 +8,47 @@
 _console()
 {
     local cur prev script
-        COMPREPLY=()
-        cur="${COMP_WORDS[COMP_CWORD]}"
-        prev="${COMP_WORDS[COMP_CWORD-1]}"
-        script="${COMP_WORDS[0]}"
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    script="${COMP_WORDS[0]}"
 
-        if [[ ${cur} == -* ]] ; then
-            PHP=$(cat <<'HEREDOC'
-                    array_shift($argv);
-                    $script = array_shift($argv);
-                    $command = '';
-                    foreach ($argv as $v) {
-                    if (0 !== strpos($v, '-')) {
-                    $command = $v;
-                    break;
-                    }
-                    }
+    if [[ ${cur} == -* ]] ; then
+        PHP=$(cat <<'HEREDOC'
+array_shift($argv);
+$script = array_shift($argv);
+$command = '';
+foreach ($argv as $v) {
+    if (0 !== strpos($v, '-')) {
+        $command = $v;
+        break;
+    }
+}
 
-                    $xmlHelp = shell_exec($script.' help --xml '.$command);
-                    $options = array();
-                    if (!$xml = @simplexml_load_string($xmlHelp)) {
-                    exit(0);
-                    }
-                    foreach ($xml->xpath('/command/options/option') as $option) {
-                    $options[] = (string) $option['name'];
-                    }
+$xmlHelp = shell_exec($script.' help --xml '.$command);
+$options = array();
+if (!$xml = @simplexml_load_string($xmlHelp)) {
+    exit(0);
+}
+foreach ($xml->xpath('/command/options/option') as $option) {
+    $options[] = (string) $option['name'];
+}
 
-                    echo implode(' ', $options);
-                    HEREDOC
-                        )
+echo implode(' ', $options);
+HEREDOC
+)
 
-                        args=$(printf "%s " "${COMP_WORDS[@]}")
-                        options=$($(which php) -r "$PHP" ${args});
-                    COMPREPLY=($(compgen -W "${options}" -- ${cur}))
+        args=$(printf "%s " "${COMP_WORDS[@]}")
+        options=$($(which php) -r "$PHP" ${args});
+        COMPREPLY=($(compgen -W "${options}" -- ${cur}))
 
-                        return 0
-                        fi
+        return 0
+    fi
 
-                        commands=$(${script} list --raw | sed -E 's/(([^ ]+ )).*/\1/')
-                        COMPREPLY=($(compgen -W "${commands}" -- ${cur}))
+    commands=$(${script} list --raw | sed -E 's/(([^ ]+ )).*/\1/')
+    COMPREPLY=($(compgen -W "${commands}" -- ${cur}))
 
-                        return 0;
+    return 0;
 }
 
 complete -F _console console
@@ -58,4 +58,3 @@ complete -F _console console-prod
 complete -F _console console-staging
 complete -F _console Symfony
 COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
-
