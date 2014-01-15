@@ -9,7 +9,8 @@ eval $(ssh-agent)
 DISABLE_UPDATE_PROMPT=true
 #DISABLE_AUTO_UPDATE=true
 
-ZSH_THEME="af-magic"
+#ZSH_THEME="bira"
+ZSH_THEME="powerline"
 
 export LS_OPTIONS='--color=auto'
 
@@ -51,3 +52,18 @@ source $ZSH/oh-my-zsh.sh
 PATH=$PATH:/usr/local/rvm/bin
 
 umask 0000
+
+POWERLINE_RIGHT_A="mixed"
+POWERLINE_DATE_FORMAT="%D{%d-%m}"
+POWERLINE_SHOW_GIT_ON_RIGHT="true"
+POWERLINE_DETECT_SSH="true"
+POWERLINE_GIT_CLEAN="✔"
+POWERLINE_GIT_DIRTY="✘"
+POWERLINE_GIT_ADDED="%F{green}✚%F{black}"
+POWERLINE_GIT_MODIFIED="%F{blue}✹%F{black}"
+POWERLINE_GIT_DELETED="%F{red}✖%F{black}"
+POWERLINE_GIT_UNTRACKED="%F{yellow}✭%F{black}"
+POWERLINE_GIT_RENAMED="➜"
+POWERLINE_GIT_UNMERGED="═"
+
+export TERM="xterm-256color"
