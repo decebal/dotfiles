@@ -1,3 +1,4 @@
+#!/bin/bash
 #The following lines should be added to your .bashrc file to use the git-output.awk file
 
 # ⚫ ❨ ❩ ⬆ ⬇ ⑈ ⑉ ǁ ║ ⑆ ⑇ ⟅ ⟆ ⬅ ➤ ➥ ➦ ➡

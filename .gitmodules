@@ -4,3 +4,9 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "git-flow-completion"]
+	path = git-flow-completion
+	url = https://github.com/bobthecow/git-flow-completion
+[submodule "zsh-completions"]
+	path = zsh-completions
+	url = git://github.com/zsh-users/zsh-completions.git

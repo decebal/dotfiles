@@ -1,6 +1,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+export DOTFILES=$HOME/dotfiles
+DOTFILES=$HOME/dotfiles
+
 VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 
 #osx color terminal
@@ -110,24 +113,28 @@ debian_chroot=$(cat /etc/debian_chroot)
     fi
 
 # Alias definitions.
-    if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    if [ -f $DOTFILES/.aliases ]; then
+    . $DOTFILES/.aliases
     fi
 
-    if [ -f ~/.bash_functions ]; then
-        . ~/.bash_functions
+    if [ -f $DOTFILES/.functions ]; then
+        . $DOTFILES/.bash_functions
     fi
 
-    if [ -f ~/.git_completion.bash ]; then
-        . ~/.git_completion.bash
+    if [ -f $DOTFILES/.git_completion.bash ]; then
+        . $DOTFILES/.git_completion.bash
     fi
 
-    if [ -f ~/.git-flow-completion.bash ]; then
-        . ~/.git-flow-completion.bash
+    if [ -f $DOTFILES/.git-flow-completion.bash ]; then
+        . $DOTFILES/.git-flow-completion.bash
     fi
 
-    if [ -f ~/.symfony2-autocomplete.bash ]; then
-        . ~/.symfony2-autocomplete.bash
+    if [ -f $DOTFILES/.symfony2-autocomplete.bash ]; then
+        . $DOTFILES/.symfony2-autocomplete.bash
+    fi
+
+    if [ -f $DOTFILES/.complete-hosts.sh ]; then
+        . $DOTFILES/.complete-hosts.sh
     fi
 
 # enable programmable completion features (you don't need to enable
@@ -177,69 +184,9 @@ export GIT_EDITOR="vim"
 export PS1="$PS1\$(parse_git_branch)\$(parse_svn_branch) "
 
 
-# /etc/profile.d/complete-hosts.sh
-# Autocomplete Hostnames for SSH etc.
-# by Jean-Sebastien Morisset (http://surniaulula.com/)
-_complete_hosts () {
-    COMPREPLY=()
-        cur="${COMP_WORDS[COMP_CWORD]}"
-        host_list=`{ 
-            for c in /etc/ssh_config /etc/ssh/ssh_config ~/.ssh/config
-                do [ -r $c ] && sed -n -e 's/^Host[[:space:]]//p' -e 's/^[[:space:]]*HostName[[:space:]]//p' $c
-                    done
-                        for k in /etc/ssh_known_hosts /etc/ssh/ssh_known_hosts ~/.ssh/known_hosts
-                            do [ -r $k ] && egrep -v '^[#\[]' $k|cut -f 1 -d ' '|sed -e 's/[,:].*//g'
-                                done
-                                    sed -n -e 's/^[0-9][0-9\.]*//p' /etc/hosts; }|tr ' ' '\n'|grep -v '*'`
-                                    COMPREPLY=( $(compgen -W "${host_list}" -- $cur))
-                                    return 0
-}
-
-export LESS="-X"
-alias clean_pycs='find . -name "*.pyc" -exec rm {} \;'
-
-complete -F _complete_hosts ssh
-complete -F _complete_hosts host
-
-# ⚫ ❨ ❩ ⬆ ⬇ ⑈ ⑉ ǁ ║ ⑆ ⑇ ⟅ ⟆ ⬅ ➤ ➥ ➦ ➡
-SEPARATOR="ǁ"
-SEPARATOR2="/"
-
-function parse_git_output {
-
-    output=$(git status 2> /dev/null | $HOME/.bash/git.awk -v separator=$SEPARATOR separator2=$SEPARATOR2 2> /dev/null) || return
-        echo -e "$output";
-}
-
-BLACK="\[\e[00;30m\]"
-DARY_GRAY="\[\e[01;30m\]"
-RED="\[\e[00;31m\]"
-BRIGHT_RED="\[\e[01;31m\]"
-GREEN="\[\e[00;32m\]"
-BRIGHT_GREEN="\[\e[01;32m\]"
-BROWN="\[\e[00;33m\]"
-YELLOW="\[\e[01;33m\]"
-BLUE="\[\e[00;34m\]"
-BRIGHT_BLUE="\[\e[01;34m\]"
-PURPLE="\[\e[00;35m\]"
-LIGHT_PURPLE="\[\e[01;35m\]"
-CYAN="\[\e[00;36m\]"
-BRIGHT_CYAN="\[\e[01;36m\]"
-LIGHT_GRAY="\[\e[00;37m\]"
-WHITE="\[\e[01;37m\]"
-ENDCOLOR="\e[m"
-
-if [ "$SSH_CONNECTION" == "" ]; then
-PS1="${BRIGHT_RED}#--[ ${GREEN}\h ${DARY_GRAY}${SEPARATOR} ${BRIGHT_BLUE}\w \$(parse_git_output)${BRIGHT_RED}]\\$ -->${ENDCOLOR}\n"
-else
-PS1="${BRIGHT_RED}#--[ ${YELLOW}\h ${DARY_GRAY}${SEPARATOR} ${BRIGHT_BLUE}\w \$(parse_git_output)${BRIGHT_RED}]\\$ --≻${ENDCOLOR}\n"
-fi
-
-#if [[ -o login ]]; then                                                        
-    cd /var/www                                                                
-#fi 
+cd /var/www                                                                
 
 export PATH=$PATH:~/bin
 umask 0000
 
-source ~/.bash/git2.bashrc
+source $DOTFILES/git.bashrc

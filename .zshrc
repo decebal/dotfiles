@@ -1,13 +1,13 @@
 #Path to your oh-my-zsh configuration.
-DOTFILES=$HOME/$DOTFILES
-export $DOTFILES
+export DOTFILES=$HOME/dotfiles
+DOTFILES=$HOME/dotfiles
 ZSH=$DOTFILES/oh-my-zsh
 
 eval $(ssh-agent)
 /usr/bin/ssh-add
 
-#DISABLE_UPDATE_PROMPT=true
-DISABLE_AUTO_UPDATE=true
+DISABLE_UPDATE_PROMPT=true
+#DISABLE_AUTO_UPDATE=true
 
 ZSH_THEME="af-magic"
 
@@ -17,7 +17,8 @@ COMPLETION_WAITING_DOTS="true"
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
-plugins=(git rvm)
+plugins=(git rvm virtualenv)
+fpath=($DOTFILES/zsh-completions/src $fpath)
 
 # Customize to your needs...
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -31,30 +32,22 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # Alias definitions.
-    if [ -f $DOTFILES/.bash_aliases ]; then
-    . $DOTFILES/.bash_aliases
+    if [ -f $DOTFILES/.aliases ]; then
+    . $DOTFILES/.aliases
     fi
 
-    if [ -f $DOTFILES/.bash_functions ]; then
-        . $DOTFILES/.bash_functions
+    if [ -f $DOTFILES/.functions ]; then
+        . $DOTFILES/.functions
     fi
 
-    if [ -f $DOTFILES/.git_completion.bash ]; then
-        . $DOTFILES/.git_completion.bash
-    fi
+#    if [ -f $DOTFILES/.symfony2-autocomplete.bash ]; then
+#        . $DOTFILES/.symfony2-autocomplete.bash
+#    fi
 
-    if [ -f $DOTFILES/.git-flow-completion.bash ]; then
-        . $DOTFILES/.git-flow-completion.bash
-    fi
-
-    if [ -f $DOTFILES/.symfony2-autocomplete.bash ]; then
-        . $DOTFILES/.symfony2-autocomplete.bash
-    fi
-
-    if [ -f $DOTFILES/.complete-hosts.sh ]; then
-        . $DOTFILES/.complete-hosts.sh
-    fi
+#    if [ -f $DOTFILES/.complete-hosts.sh ]; then
+#        . $DOTFILES/.complete-hosts.sh
+#    fi
 
 PATH=$PATH:/usr/local/rvm/bin
 
-source $DOTFILES/git.bashrc
+umask 0000
