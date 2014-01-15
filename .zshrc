@@ -9,8 +9,8 @@ eval $(ssh-agent)
 DISABLE_UPDATE_PROMPT=true
 #DISABLE_AUTO_UPDATE=true
 
-ZSH_THEME="bira"
-#ZSH_THEME="powerline"
+#ZSH_THEME="bira"
+ZSH_THEME="powerline"
 
 export LS_OPTIONS='--color=auto'
 

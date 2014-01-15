@@ -1,4 +1,5 @@
 #!/bin/bash
+DOTFILES=$HOME/dotfiles
 
 #git global configuration
 git config --global core.excludesfile $DOTFILES/.gitignore_global
