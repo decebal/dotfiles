@@ -19,3 +19,6 @@
 [submodule "vim-airline"]
 	path = vim-airline
 	url = https://github.com/bling/vim-airline
+[submodule "vim-sources/bundle/vim-sensible"]
+	path = vim-sources/bundle/vim-sensible
+	url = git://github.com/tpope/vim-sensible.git
