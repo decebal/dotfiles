@@ -22,3 +22,12 @@
 [submodule "vim-sources/bundle/vim-sensible"]
 	path = vim-sources/bundle/vim-sensible
 	url = git://github.com/tpope/vim-sensible.git
+[submodule "vim-sources/bundle/vim-airline"]
+	path = vim-sources/bundle/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "vim-sources/bundle/vim-startify"]
+	path = vim-sources/bundle/vim-startify
+	url = https://github.com/mhinz/vim-startify
+[submodule "vim-sources/bundle/vim-bufferline"]
+	path = vim-sources/bundle/vim-bufferline
+	url = https://github.com/bling/vim-bufferline
