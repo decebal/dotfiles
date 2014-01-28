@@ -237,10 +237,11 @@ nmap <Leader>tl :TlistToggle<CR>
 nmap <Leader>gu :GundoToggle<CR>
 " make arrow keys useful
 " use them to swap between split windows
-nmap <left> <C-W>h
-nmap <right> <C-W>l
-nmap <up> <C-W>k
-nmap <down> <C-W>j
+" i don't like this
+"nmap <left> <C-W>h
+"nmap <right> <C-W>l
+"nmap <up> <C-W>k
+"nmap <down> <C-W>j
 "}}}
 " php {{{
 " syntax check

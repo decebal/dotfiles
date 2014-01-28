@@ -22,7 +22,7 @@ COMPLETION_WAITING_DOTS="true"
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
-plugins=(git rvm virtualenv)
+plugins=(git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd )
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
 # Customize to your needs...
