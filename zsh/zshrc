@@ -1,7 +1,7 @@
 #Path to your oh-my-zsh configuration.
 
 DOTFILES=$HOME/.dotfiles
-ZSH=$DOTFILES/oh-my-zsh
+ZSH=$DOTFILES/zsh/oh-my-zsh
 
 eval $(ssh-agent)
 /usr/bin/ssh-add
