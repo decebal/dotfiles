@@ -47,3 +47,8 @@ Thumbs.db
 #Symfony personal files
 web/app.php
 composer.phar
+
+#ignore local specific modifications
+local/*
+*.local
+
