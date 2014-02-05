@@ -18,5 +18,5 @@ cat $DOTFILES/git/gitconfig >> $HOME/.gitconfig
 
 #local configuration
 ln -sbf $DOTFILES/local $HOME/.local
-touch $HOME/.local/aliases
-touch $HOME/.local/functions
+touch $DOTFILES/local/aliases
+touch $DOTFILES/local/functions
