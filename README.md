@@ -23,3 +23,6 @@ or your zsh/zshrc similar lines depending on your choosing.
  2. run install script
 
     ` cd ~/.dotfiles && ./install.sh `
+3. install git flow 
+    - use package manager : git-flow
+    - without root access: `mkdir -p ~/bin; cd ~/bin; export INSTALL_PREFIX=~/bin; wget --no-check-certificate -q -O - https://raw.github.com/nvie/gitflow/develop/contrib/gitflow-installer.sh | bash`
