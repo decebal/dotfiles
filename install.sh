@@ -40,11 +40,4 @@ mkdir $DOTFILES/local
 touch $DOTFILES/local/aliases
 touch $DOTFILES/local/functions
 
-case $n in
-	1)
-		source $HOME/.bashrc
-		;;
-	2)
-		source $HOME/.zshrc
-		;;
-esac
+echo "Restart your shell for modifications to take place"
