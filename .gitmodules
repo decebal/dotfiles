@@ -4,9 +4,6 @@
 [submodule "vim/vim-sources/bundle/vim-startify"]
 	path = vim/vim-sources/bundle/vim-startify
 	url = https://github.com/mhinz/vim-startify
-[submodule "vim/vim-sources/bundle/vim-startify-orig"]
-	path = vim/vim-sources/bundle/vim-startify
-	url = https://github.com/mhinz/vim-startify
 [submodule "vim/vim-sources/bundle/vim-bufferline"]
 	path = vim/vim-sources/bundle/vim-bufferline
 	url = https://github.com/bling/vim-bufferline
