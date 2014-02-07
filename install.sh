@@ -8,12 +8,14 @@ case $n in
 		echo "creating bash links..."
 		#bash config file
 		ln -sbf $DOTFILES/bash/bashrc $HOME/.bashrc
+		source $HOME/.bashrc
 		;;
 	2)
 		echo "creating zsh links..."
 		#zsh config file
 		ln -sbf $DOTFILES/zsh/zshrc $HOME/.zshrc
 		ln -sbf $DOTFILES/zsh/oh-my-zsh/ $HOME/.oh-my-zsh
+		source $HOME/.zshrc
 		;;
 	*)
 		echo "canceled"
