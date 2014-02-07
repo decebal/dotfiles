@@ -19,7 +19,7 @@ or your zsh/zshrc similar lines depending on your choosing.
  ##Recommened install flow:
  1. Clone repo
 
-    ` git clone https://github.com/decebal/dotfiles ~/.dotfiles `
+    ` git clone --recursive https://github.com/decebal/dotfiles ~/.dotfiles `
  2. run install script
 
     ` cd ~/.dotfiles && ./install.sh `
