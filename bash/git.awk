@@ -9,14 +9,14 @@
 #
 # Sample output:
 #
-# | master | â¬† 1 â¬‡ 1 | 1/2/3/4 |1
+# | master | ⬆ 1 ⬇ 1 | 1/2/3/4 |1
 #
 # What the output means:
 #
 # | - field separator
 # master - the branch name or (no branch) or (bare repository)
-# â¬† 1 - how many commits on this branch not in the remote branch. You need to push changes to remote.
-# â¬‡ 1 - how many commits on the remote branch not in this branch. You need to pull changes from remote.
+# ⬆ 1 - how many commits on this branch not in the remote branch. You need to push changes to remote.
+# ⬇ 1 - how many commits on the remote branch not in this branch. You need to pull changes from remote.
 # 1/2/3/4 - The count of changes in the repository:
 # 1 - the number of staged changes. (green)
 # 2 - the number of unstaged changes. (yellow)
@@ -175,10 +175,10 @@ END {
 
             if(ahead > 0 || behind > 0) {
                 if(ahead > 0) {
-                    output = output bright_yellow "â†‘ " end_color ahead;
+                    output = output bright_yellow "↑ " end_color ahead;
                 } 
                 if (behind > 0) {
-                    output = output bright_yellow "â†“ " end_color behind;
+                    output = output bright_yellow "↓ " end_color behind;
                 }
 
                 output = output " " separator " ";
