@@ -10,3 +10,6 @@
 [submodule "vim/vim-sources/bundle/vim-sensible"]
 	path = vim/vim-sources/bundle/vim-sensible
 	url = git://github.com/tpope/vim-sensible.git
+[submodule "vim/vim-sources/bundle/vim-python-mode"]
+	path = vim/vim-sources/bundle/vim-python-mode
+	url = git://github.com/klen/python-mode.git
