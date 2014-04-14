@@ -1,0 +1,8 @@
+alias clc='/home/razvan.malos/sh/clear_cache.sh'
+alias purge='/home/razvan.malos/sh/purge.sh'
+alias scd='. /home/razvan.malos/sh/cd_utils.sh'
+alias etail='/home/razvan.malos/sh/etail.sh'
+alias atail='/home/razvan.malos/sh/atail.sh'
+alias webcfg='/home/razvan.malos/sh/update_web_cfg.sh'
+alias cron='/home/razvan.malos/sh/run_cron.sh'
+alias route='/home/razvan.malos/sh/route_match.sh'
