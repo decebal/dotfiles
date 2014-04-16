@@ -1,0 +1,9 @@
+#! /bin/sh
+
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/
+PATH=$PATH:/usr/local/rvm/bin
+
+if [ -f $DOTFILES/local/paths ]; then
+	. $DOTFILES/local/paths
+fi

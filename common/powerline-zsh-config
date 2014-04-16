@@ -1,0 +1,11 @@
+#! /bin/zsh
+
+ZSH_THEME="powerline"
+
+#powerline options
+POWERLINE_RIGHT_A="mixed"
+POWERLINE_DATE_FORMAT="%D{%d-%m}"
+POWERLINE_SHOW_GIT_ON_RIGHT="true"
+POWERLINE_DETECT_SSH="true"
+#POWERLINE_FULL_CURRENT_PATH="true"
+#POWERLINE_NO_BLANK_LINE="true"
