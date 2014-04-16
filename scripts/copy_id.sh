@@ -1,3 +1,4 @@
+
 #!/bin/bash
 source ~/scripts/eos_hosts.cfg
 arg=( "$@" )
@@ -22,7 +23,7 @@ for i in ${!hosts[@]}; do
         done
     fi
     if [ $copy -eq 1 ]; then
-    	if [ $verbose -eq 0 ]; then
+        if [ $verbose -eq 0 ]; then
             echo -ne "Copy scripts for $key ($i) started..."
             ssh-copy-id $i 1>/dev/null 2>&1
             echo 'if [[ ! -d ~/sh ]]; then mkdir ~/sh; fi' | ssh $i 1>/dev/null 2>&1
@@ -57,4 +58,3 @@ for i in ${!hosts[@]}; do
 
     fi
 done
-
