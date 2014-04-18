@@ -13,3 +13,6 @@
 [submodule "vim/vim-sources/bundle/vim-python-mode"]
 	path = vim/vim-sources/bundle/vim-python-mode
 	url = git://github.com/klen/python-mode.git
+[submodule "vim/vim-sources/bundle/vim-gitgutter"]
+	path = vim/vim-sources/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
