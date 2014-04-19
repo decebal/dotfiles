@@ -16,3 +16,6 @@
 [submodule "vim/vim-sources/bundle/vim-gitgutter"]
 	path = vim/vim-sources/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
+[submodule "common/colors"]
+	path = common/colors
+	url = https://github.com/coolwanglu/guake-colors-solarized.git
