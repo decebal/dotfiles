@@ -21,7 +21,7 @@
 4. Document user made functions
   1. Document emag functions with sugestions and help
   2. Create a command that lists avaiable user made functions
-  3. Add swiss knife functions & document them
+  3. Add swiss army knife functions & document them
 
 5. Config as beeing client
   1. server vs client
