@@ -1,13 +1,13 @@
 #! /bin/bash
 
 alias ac="ack-grep"
-alias apache_log="tail -f /var/log/apache2/*"
 alias unix="date +%s"
 
 alias grep="grep --color=auto"
 alias tm="ps -ef | grep"
 
 alias composer="php /usr/local/bin/composer.phar"
+alias cgetg="curl -s https://getcomposer.org/installer | php && sudo mv composer.phar /usr/local/bin/composer"
 
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gti="git"
@@ -37,4 +37,5 @@ alias hotfix='git flow hotfix'
 if [ -f $DOTFILES/local/aliases ]; then
 	. $DOTFILES/local/aliases
 fi
+
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''

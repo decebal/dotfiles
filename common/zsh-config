@@ -1,0 +1,31 @@
+#! /bin/zsh
+
+ZSH=$DOTFILES/zsh/oh-my-zsh
+
+eval $(ssh-agent)
+/usr/bin/ssh-add
+
+DISABLE_UPDATE_PROMPT=true
+DISABLE_AUTO_UPDATE=false
+
+#my personal favorite after powerline
+#ZSH_THEME="bira"
+ZSH_THEME="random"
+
+export LS_OPTIONS='--color=auto'
+
+COMPLETION_WAITING_DOTS="true"
+
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+plugins=(git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd )
+fpath=($DOTFILES/zsh-completions/src $fpath)
+
+#powerline configuration
+if [ -f $DOTFILES/common/powerline-zsh-config ]; then
+	. $DOTFILES/common/powerline-zsh-config
+fi
+
+if [ -f $DOTFILES/local/zsh-config ]; then
+	. $DOTFILES/local/zsh-config
+fi

@@ -57,7 +57,6 @@ set hlsearch
 " }}}
 " {{{ behavior
 set nocompatible
-syntax on
 filetype on
 filetype plugin on
 
@@ -71,9 +70,10 @@ set omnifunc=syntaxcomplete#Complete
 " Let the filetype plugins do the work.
 set shiftwidth=2
 set tabstop=2
-"filetype indent on
 "set autoindent
-set cindent
+"set cindent
+filetype plugin indent on
+syntax on
 
 " show matching enclosing chars for .1 sec
 set showmatch

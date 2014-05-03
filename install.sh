@@ -39,5 +39,6 @@ ln -sbf $DOTFILES/local $HOME/.local
 mkdir $DOTFILES/local
 touch $DOTFILES/local/aliases
 touch $DOTFILES/local/functions
+touch $DOTFILES/local/paths
 
 echo "Restart your shell for modifications to take place"
