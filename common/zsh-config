@@ -1,31 +1,49 @@
-#! /bin/zsh
+#!/bin/zsh
 
 ZSH=$DOTFILES/zsh/oh-my-zsh
 
-eval $(ssh-agent)
-/usr/bin/ssh-add
+if [ -f $DOTFILES/local/zsh-setup ]; then
+	. $DOTFILES/local/zsh-setup
+fi
+
+if [ "$is_server" = true ]; then
+    eval $(ssh-agent)
+    /usr/bin/ssh-add
+    zstyle :omz:plugins:ssh-agent agent-forwarding on
+fi
 
 DISABLE_UPDATE_PROMPT=true
 DISABLE_AUTO_UPDATE=false
 
-#my personal favorite after powerline
-#ZSH_THEME="bira"
-ZSH_THEME="random"
+if [ -z "$zsh_theme" ]; then
+    ZSH_THEME="random"
+else if [ "$zsh_theme" = 'powerline' ]
+    #powerline configuration
+    if [ -f $DOTFILES/common/powerline-zsh-config ]; then
+    	. $DOTFILES/common/powerline-zsh-config
+    fi
+fi
 
 export LS_OPTIONS='--color=auto'
-
 COMPLETION_WAITING_DOTS="true"
-
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-
-plugins=(git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd )
-fpath=($DOTFILES/zsh-completions/src $fpath)
-
-#powerline configuration
-if [ -f $DOTFILES/common/powerline-zsh-config ]; then
-	. $DOTFILES/common/powerline-zsh-config
-fi
 
 if [ -f $DOTFILES/local/zsh-config ]; then
 	. $DOTFILES/local/zsh-config
+fi
+
+if [ -z "$zsh_plugins_list" ]; then
+    #personal favorite plugins, may reduce the list to minimal, not just now
+    $zsh_plugin_list = "git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ";
+fi
+
+plugins=("$zsh_plugins_list")
+fpath=($DOTFILES/zsh-completions/src $fpath)
+
+if [ -f $ZSH/oh-my-zsh.sh ]; then
+    source $ZSH/oh-my-zsh.sh
+fi
+
+# Change directory on login
+if [[ -o login ]]; then
+    cd /var/www
 fi
