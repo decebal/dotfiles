@@ -5,7 +5,7 @@ if [ ! -f $DOTFILES/local/hosts.cfg ]; then
     exit
 fi
 
-source ~/scripts/hosts.cfg
+source $DOTFILES/local/hosts.cfg
 arg=( "$@" )
 
 verbose=0
@@ -41,8 +41,6 @@ for i in ${!hosts[@]}; do
             # scp ~/scripts/bash_aliases $i:~/.bash_aliases 1>/dev/null 2>&1
             # scp ~/scripts/id/* $i:~/.ssh/ 1>/dev/null 2>&1   //why would you want to do this ??
             # echo "chmod 600 ~/.ssh/*" | ssh $i 1>/dev/null 2>&1
-            echo "git config --global push.default current" | ssh $i 1>/dev/null 2>&1
-            echo "git config --global color.ui auto" | ssh $i 1>/dev/null 2>&1
             #echo "git config --global user.name 'User Name'" | ssh $i 1>/dev/null 2>&1
             #echo "git config --global user.email 'user.email@emag.ro'" | ssh $i 1>/dev/null 2>&1
             echo "done"
@@ -56,8 +54,6 @@ for i in ${!hosts[@]}; do
             # scp ~/scripts/bash_aliases $i:~/.bash_aliases
             # scp ~/scripts/id/* $i:~/.ssh/ //why would you want to do this ??
             # echo "chmod 600 ~/.ssh/*" | ssh $i
-            echo "git config --global push.default current" | ssh $i
-            echo "git config --global color.ui auto" | ssh $i
             # echo "git config --global user.name 'User Name'" | ssh $i
             # echo "git config --global user.email 'user.email@emag.ro'" | ssh $i
 

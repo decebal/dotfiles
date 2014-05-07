@@ -1,6 +1,13 @@
+#!/bin/zsh
 #Path to your oh-my-zsh configuration.
 
 DOTFILES=$HOME/.dotfiles
+is_server=false
+zsh_theme="powerline"
+
+if [ -f $DOTFILES/local/master-config.sh ]; then
+	. $DOTFILES/local/master-config.sh
+fi
 
 # Customize to your needs...
 if [ -f $DOTFILES/common/paths ]; then
@@ -10,13 +17,6 @@ fi
 if [ -f $DOTFILES/common/zsh-config ]; then
 	. $DOTFILES/common/zsh-config
 fi
-
-# Change directory on login
-if [[ -o login ]]; then
-    cd /var/www
-fi
-
-source $ZSH/oh-my-zsh.sh
 
 # Alias definitions.
 if [ -f $DOTFILES/common/aliases ]; then
@@ -29,5 +29,3 @@ fi
 
 umask 0000
 export TERM="xterm-256color"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

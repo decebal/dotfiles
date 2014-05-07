@@ -1,4 +1,4 @@
-#! /bin/zsh
+#!/bin/zsh
 
 ZSH_THEME="powerline"
 
