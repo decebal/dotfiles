@@ -31,12 +31,12 @@ if [ -f $DOTFILES/local/zsh-config ]; then
 	. $DOTFILES/local/zsh-config
 fi
 
-if [ -z "$zsh_plugins_list" ]; then
+#if [ -z "$zsh_plugins_list" ]; then
     #personal favorite plugins, may reduce the list to minimal, not just now
-    $zsh_plugin_list = "git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ";
-fi
+    #$zsh_plugin_list = "git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ";
+#fi
 
-plugins=("$zsh_plugins_list")
+plugins=("git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ");
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
