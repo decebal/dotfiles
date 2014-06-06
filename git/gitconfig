@@ -29,22 +29,31 @@
 # }}}
 # push/pull/diff/options {{{
     [push]
-        default = current
-        [pull]
-        default = current
-        [diff]
-        memonicprefix = true
-        [branch]
-        autosetuprebase = always
-        [apply]
-        whitespace = nowarn
+      default = upstream
+		[pull]
+			default = current
+		[diff]
+			memonicprefix = true
+		[branch]
+			#autosetuprebase = always
+		[apply]
+			whitespace = nowarn
 
 #}}}
 # difftools {{{
+    [diff] 
+				tool = vimdiff
+		[difftool]
+				promt = false		
     [difftool "sourcetree"]
         path = 
-        [mergetool "sourcetree"]
-        trustExitCode = true
+		[merge]
+				tool = vimdiff
+				conflictstyle = diff3
+		[mergetool]
+				promt = false
+		[mergetool "sourcetree"]
+				trustExitCode = true
 
 # }}}
 # alias {{{
@@ -104,6 +113,8 @@
 
 #stash
         sl = stash list
+				sp = stash pop
+				sc = stash clear
         sa = stash apply
         ss = stash save
 
