@@ -28,8 +28,8 @@ ln -sbf $DOTFILES/vim/vimrc $HOME/.vimrc
 
 echo "setting up git config & aliases ..."
 #git global configuration
-git config --global core.excludesfile $DOTFILES/git/gitignore_global
 cat $DOTFILES/git/gitconfig >> $HOME/.gitconfig
+git config --global core.excludesfile $DOTFILES/git/gitignore_global
 
 echo "creating local folder..."
 #local configuration
