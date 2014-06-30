@@ -12,6 +12,10 @@ function mcd() {
     mkdir -p "$1" && cd "$1";
 }
 
+function zssh() {
+		ssh "$@" -t "/bin/zsh;/bin/bash"
+}
+
 if [ -f $DOTFILES/local/functions ]; then
 	. $DOTFILES/local/functions
 fi
