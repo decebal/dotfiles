@@ -19,3 +19,6 @@
 [submodule "common/colors"]
 	path = common/colors
 	url = https://github.com/coolwanglu/guake-colors-solarized.git
+[submodule "vim/vim-sources/bundle/vim-sintactic"]
+	path = vim/vim-sources/bundle/vim-sintactic
+	url = https://github.com/scrooloose/syntastic.git
