@@ -6,7 +6,7 @@ alias unix="date +%s"
 alias grep="grep --color=auto"
 alias tm="ps -ef | grep"
 
-alias composer="php /usr/local/bin/composer.phar"
+alias composer="php /usr/local/bin/composer"
 alias cgetg="curl -s https://getcomposer.org/installer | php && sudo mv composer.phar /usr/local/bin/composer"
 
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
