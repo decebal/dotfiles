@@ -72,7 +72,7 @@ set shiftwidth=4
 set tabstop=4
 set expandtab
 set autoindent
-"set cindent
+set cindent
 filetype plugin indent on
 syntax on
 
