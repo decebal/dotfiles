@@ -2,7 +2,11 @@
 #Path to your oh-my-zsh configuration.
 
 DOTFILES=$HOME/.dotfiles
-is_server=false
+export GOPATH=$HOME/.goFiles
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+is_serve=rfalse
 zsh_theme="powerline"
 
 if [ -f $DOTFILES/local/master-config.sh ]; then
