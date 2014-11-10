@@ -36,11 +36,16 @@ fi
     #$zsh_plugin_list = "git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ";
 #fi
 
-plugins=("git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ");
+plugins=("git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd zsh-syntax-highlighting");
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
     source $ZSH/oh-my-zsh.sh
+fi
+
+#k git-zsh list directory plugin
+if [ -f $DOTFILES/zsh/k/k.sh ]; then
+    source $DOTFILES/zsh/k/k.sh
 fi
 
 # Change directory on login

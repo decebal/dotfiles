@@ -23,22 +23,26 @@ esac
 
 echo "creating vim links..."
 #vim install
+mv $HOME/.vim $HOME/.vim_old 2>/dev/null
+mv $HOME/.vimrc $HOME/.vimrc_old 2>/dev/null
 ln -sbf $DOTFILES/vim/vim-sources $HOME/.vim
 ln -sbf $DOTFILES/vim/vimrc $HOME/.vimrc
 
 echo "setting up git config & aliases ..."
 #git global configuration
+#@TODO these files should be merged smoothly 
+#applying with priority what comes from the repo
 cat $DOTFILES/git/gitconfig >> $HOME/.gitconfig
 git config --global core.excludesfile $DOTFILES/git/gitignore_global
 
-echo "creating local folder..."
+#echo "creating local folder..."
 #local configuration
-ln -sbf $DOTFILES/local $HOME/.local
+#ln -sbf $DOTFILES/local $HOME/.local
 
 #create local files
-mkdir $DOTFILES/local
-touch $DOTFILES/local/aliases
-touch $DOTFILES/local/functions
-touch $DOTFILES/local/paths
+#mkdir $DOTFILES/local
+#touch $DOTFILES/local/aliases
+#touch $DOTFILES/local/functions
+#touch $DOTFILES/local/paths
 
 echo "Restart your shell for modifications to take place"

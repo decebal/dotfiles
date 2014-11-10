@@ -2,7 +2,7 @@
 #Path to your oh-my-zsh configuration.
 
 DOTFILES=$HOME/.dotfiles
-is_server=false
+is_serve=rfalse
 zsh_theme="powerline"
 
 if [ -f $DOTFILES/local/master-config.sh ]; then
