@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export GOPATH=$HOME/.goFiles
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/
 export PATH=$PATH:/usr/local/rvm/bin:$HOME/bin

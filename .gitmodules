@@ -25,3 +25,6 @@
 [submodule "zsh/k"]
 	path = zsh/k
 	url = https://github.com/supercrabtree/k
+[submodule "zsh/oh-my-zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/oh-my-zsh/plugins/zsh-syntax-highlighting
+	url = git://github.com/zsh-users/zsh-syntax-highlighting.git

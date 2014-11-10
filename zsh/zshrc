@@ -2,10 +2,6 @@
 #Path to your oh-my-zsh configuration.
 
 DOTFILES=$HOME/.dotfiles
-export GOPATH=$HOME/.goFiles
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
 is_serve=rfalse
 zsh_theme="powerline"
 
