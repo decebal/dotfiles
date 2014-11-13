@@ -10,18 +10,18 @@
         diff = auto
         status = auto
 
-        [color "branch"]
+    [color "branch"]
         current = red reverse
         local = blue
         remote = green
 
-        [color "diff"]
+    [color "diff"]
         meta = yellow bold
         frag = magenta bold
         old = red bold
         new = green bold
 
-        [color "status"]
+    [color "status"]
         added = yellow
         changed = green
         untracked = cyan
@@ -29,32 +29,27 @@
 # }}}
 # push/pull/diff/options {{{
     [push]
-      default = upstream
-		[pull]
-			default = current
-		[diff]
-			memonicprefix = true
-		[branch]
-			#autosetuprebase = always
-		[apply]
-			whitespace = nowarn
+        default = upstream
+    [pull]
+        default = current
+    [diff]
+        memonicprefix = true        
+    [apply]
+        whitespace = nowarn
 
 #}}}
 # difftools {{{
-    [diff] 
-				tool = vimdiff
-		[difftool]
-				promt = false		
-    [difftool "sourcetree"]
-        path = 
-		[merge]
-				tool = vimdiff
-				conflictstyle = diff3
-		[mergetool]
-				promt = false
-		[mergetool "sourcetree"]
-				trustExitCode = true
-
+    [diff]
+        tool = vimdiff
+    [difftool]
+        prompt = false    
+# }}}
+# mergetools {{{
+    [merge]
+        tool = vimdiff
+        confictstyle = diff3
+    [mergetool]
+        promt = false
 # }}}
 # alias {{{
     [alias]
@@ -113,8 +108,8 @@
 
 #stash
         sl = stash list
-				sp = stash pop
-				sc = stash clear
+        sp = stash pop
+        sc = stash clear
         sa = stash apply
         ss = stash save
 
@@ -155,7 +150,7 @@
 #subtree add
         sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f" 
 # }}}
-# rerere {{{
-        [rerere]
+    [rerere]
         enabled = true
-# }}}
+
+

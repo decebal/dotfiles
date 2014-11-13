@@ -11,9 +11,63 @@ function fetch() {
 function mcd() {
     mkdir -p "$1" && cd "$1";
 }
+function deleteGitMerged() {
+  git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
+}
 
-function zssh() {
-		ssh "$@" -t "/bin/zsh;/bin/bash"
+function search() {
+  if [ "$#" -gt "1" ]; then
+    filetype="$1"
+    search="$2"
+  elif [ "$#" -eq "1" ]; then
+    filetype="*"
+    search="$1"
+  else
+    echo "Please provide function arguments.. use: search [filetype] regex "
+    exit
+  fi
+  find . -iname "*.$filetype"|  grep -v "cache" | xargs grep "$search" 
+}
+
+function error_log() {
+  domains=( 'ro' 'bg' 'hu' )
+
+  if [ $# -eq 0 ]; then
+    prefix="www"
+  else
+    prefix="$1"
+  fi
+
+  for d in "${domains[@]}"; do
+    file="/var/log/apache2/${prefix}.emag.${d}-error.log"
+    if [ -s $file ]; then
+      break
+    fi
+  done
+  if [ -r $file ]; then
+    grc tail -f $file 
+  fi
+}
+
+function access_log() {
+  domains=( 'ro' 'bg' 'hu' )
+
+  if [ $# -eq 0 ]; then
+    prefix="www"
+  else
+    prefix="$1"
+  fi
+
+  for d in "${domains[@]}"; do
+    file="/var/log/apache2/${prefix}.emag.${d}-access.log"
+    echo $file
+    if [ -f $file ]; then
+      break
+    fi
+  done
+  if [ -f $file ]; then
+    tail -f $file | ccze
+  fi
 }
 
 # Recursively traverse directory tree for git repositories, run git command
@@ -50,3 +104,4 @@ gittree() {
 if [ -f $DOTFILES/local/functions ]; then
 	. $DOTFILES/local/functions
 fi
+

@@ -2,8 +2,7 @@
 #Path to your oh-my-zsh configuration.
 
 DOTFILES=$HOME/.dotfiles
-is_serve=rfalse
-zsh_theme="powerline"
+ZSH=$DOTFILES/zsh/oh-my-zsh
 
 if [ -f $DOTFILES/local/master-config.sh ]; then
 	. $DOTFILES/local/master-config.sh
@@ -19,13 +18,14 @@ if [ -f $DOTFILES/common/zsh-config ]; then
 fi
 
 # Alias definitions.
-if [ -f $DOTFILES/common/aliases ]; then
-	. $DOTFILES/common/aliases
-fi
+    if [ -f $DOTFILES/common/aliases ]; then
+    . $DOTFILES/common/aliases
+    fi
 
-if [ -f $DOTFILES/common/functions ]; then
-	. $DOTFILES/common/functions
-fi
+    if [ -f $DOTFILES/common/functions ]; then
+        . $DOTFILES/common/functions
+    fi
+
 
 umask 0000
 export TERM="xterm-256color"
