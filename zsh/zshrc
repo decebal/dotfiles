@@ -3,6 +3,7 @@
 
 DOTFILES=$HOME/.dotfiles
 ZSH=$DOTFILES/zsh/oh-my-zsh
+zsh_theme="powerline"
 
 if [ -f $DOTFILES/local/master-config.sh ]; then
 	. $DOTFILES/local/master-config.sh
