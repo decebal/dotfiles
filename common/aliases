@@ -1,6 +1,7 @@
 #! /bin/bash
 
 alias ac="ack-grep"
+alias apache_log="tail -f /var/log/apache2/*"
 alias unix="date +%s"
 
 alias grep="grep --color=auto"
@@ -12,7 +13,7 @@ alias cgetg="curl -s https://getcomposer.org/installer | php && sudo mv composer
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gti="git"
 alias pull="git pull"
-alias push="git push"
+alias push="pull && git push"
 alias gs="git status"
 alias diff="git difftool -b"
 alias ga='git add'
@@ -33,6 +34,7 @@ alias gcl='git clone'
 alias feature='git flow feature'
 alias release='git flow release'
 alias hotfix='git flow hotfix'
+alias gm_no_task="TASK=no gm"
 
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
 

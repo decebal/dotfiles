@@ -11,11 +11,12 @@ function fetch() {
 function mcd() {
     mkdir -p "$1" && cd "$1";
 }
-
-function zssh() {
-		ssh "$@" -t "/bin/zsh;/bin/bash"
+function deleteGitMerged() {
+  git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
 }
+
 
 if [ -f $DOTFILES/local/functions ]; then
 	. $DOTFILES/local/functions
 fi
+

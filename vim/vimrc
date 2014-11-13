@@ -57,6 +57,7 @@ set hlsearch
 " }}}
 " {{{ behavior
 set nocompatible
+syntax on
 filetype on
 filetype plugin on
 
@@ -71,7 +72,7 @@ set omnifunc=syntaxcomplete#Complete
 set shiftwidth=4
 set tabstop=4
 set expandtab
-set autoindent
+"set autoindent
 set cindent
 filetype plugin indent on
 syntax on

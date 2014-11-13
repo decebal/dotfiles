@@ -52,3 +52,4 @@ composer.phar
 local/*
 *.local
 
+.idea
