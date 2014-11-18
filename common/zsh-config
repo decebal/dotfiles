@@ -9,8 +9,8 @@ fi
 if [ "$is_server" = true ]; then
     eval $(ssh-agent)
     /usr/bin/ssh-add
-    zstyle :omz:plugins:ssh-agent agent-forwarding on
 fi
+zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 DISABLE_UPDATE_PROMPT=true
 DISABLE_AUTO_UPDATE=false
