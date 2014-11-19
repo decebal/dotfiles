@@ -60,12 +60,11 @@ function access_log() {
 
   for d in "${domains[@]}"; do
     file="/var/log/apache2/${prefix}.emag.${d}-access.log"
-    echo $file
-    if [ -f $file ]; then
+    if [ -s $file ]; then
       break
     fi
   done
-  if [ -f $file ]; then
+  if [ -r $file ]; then
     tail -f $file | ccze
   fi
 }
