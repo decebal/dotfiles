@@ -28,3 +28,30 @@
 [submodule "zsh/oh-my-zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/oh-my-zsh/plugins/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "vim/vim-sources/bundle/vim-commentary"]
+	path = vim/vim-sources/bundle/vim-commentary
+	url = git://github.com/tpope/vim-commentary.git
+[submodule "vim/vim-sources/bundle/vim-eunuch"]
+	path = vim/vim-sources/bundle/vim-eunuch
+	url = git://github.com/tpope/vim-eunuch.git
+[submodule "vim/vim-sources/bundle/vim-fugitive"]
+	path = vim/vim-sources/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/vim-sources/bundle/vim-surround"]
+	path = vim/vim-sources/bundle/vim-surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "vim/vim-sources/bundle/vim-repeat"]
+	path = vim/vim-sources/bundle/vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim/vim-sources/bundle/vim-projectionist"]
+	path = vim/vim-sources/bundle/vim-projectionist
+	url = git://github.com/tpope/vim-projectionist.git
+[submodule "vim/vim-sources/bundle/vim-signify"]
+	path = vim/vim-sources/bundle/vim-signify
+	url = git://github.com/mhinz/vim-signify.git
+[submodule "vim/vim-sources/bundle/vim-tmuxline"]
+	path = vim/vim-sources/bundle/vim-tmuxline
+	url = git://github.com/edkolev/tmuxline.vim
+[submodule "vim/vim-sources/bundle/vim-colors-solarized"]
+	path = vim/vim-sources/bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
