@@ -1,0 +1,47 @@
+criptencoding utf-8
+
+"---------------------------------------------
+" G/Vim settings file for Steven Oliver
+"---------------------------------------------
+
+" Set the default size
+ if has('gui_win32') || has('gui_win64')
+     set lines=35
+     set columns=130
+ elseif has('gui_macvim')
+     set lines=45
+     set columns=145
+ elseif has('gui_gtk')
+     set lines=42
+     set columns=150
+ endif 
+
+" No scrollbars (left, bottom, right)
+set guioptions-=L
+set guioptions-=l
+set guioptions-=R
+set guioptions-=r
+set guioptions-=b
+
+" Nice copy'n'paste
+set guioptions+=a
+
+" Set the font
+if has("eval")
+    if has('gui_win32') || has('gui_win64')
+    elseif has('gui_gtk')        
+        set guifont=Anonymous\ Pro\ for\ Powerline\ 10
+    elseif has('gui_macvim')
+        "use default
+    else
+        " use default
+    endif
+endif
+
+" Nice window title
+ if has('title') && (has('gui_running') || &title)
+     set titlestring=
+     set titlestring+=%f " file name
+     set titlestring+=%h%m%r%w " flags
+     set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}  " working directory
+ endif

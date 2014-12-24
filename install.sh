@@ -27,6 +27,7 @@ mv $HOME/.vim $HOME/.vim_old 2>/dev/null
 mv $HOME/.vimrc $HOME/.vimrc_old 2>/dev/null
 ln -sbf $DOTFILES/vim/vim-sources $HOME/.vim
 ln -sbf $DOTFILES/vim/vimrc $HOME/.vimrc
+ln -sbf $DOTFILES/vim/gvimrc $HOME/.gvimrc
 
 echo "setting up git config & aliases ..."
 #git global configuration
