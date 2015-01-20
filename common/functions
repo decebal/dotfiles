@@ -100,6 +100,26 @@ gittree() {
   done
 }
 
+function createSwap(){
+    if [ $# -eq 0 ]; then
+        file="/media/fasthdd/swapfile1.img"
+        filesize="1M"
+    else
+        file="/media/fasthdd/$1"
+        filesize=$2
+    fi
+    if [ ! -d /media/fasthdd ]; then
+        sudo mkdir /media/fasthdd 
+    fi
+    sudo dd if=/dev/zero of=$file bs=1024 count=$filesize
+    sudo mkswap $file
+    fstabLine="$file swap swap sw 0 0" 
+    sudo zsh -c "echo  $fstabLine >> /etc/fstab"
+    sudo chmod 600 $file
+    sudo swapon $file
+    cat /proc/swaps
+}
+
 if [ -f $DOTFILES/local/functions ]; then
 	. $DOTFILES/local/functions
 fi
