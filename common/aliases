@@ -34,6 +34,8 @@ alias gcl='git clone'
 alias feature='git flow feature'
 alias release='git flow release'
 alias hotfix='git flow hotfix'
+
+alias push-release="git co master; push --all; git co develop;"
 alias gm_no_task="TASK=no gm"
 
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
