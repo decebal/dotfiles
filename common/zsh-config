@@ -36,7 +36,7 @@ fi
     #$zsh_plugin_list = "git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ";
 #fi
 
-plugins=(git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd zsh-syntax-highlighting);
+plugins=(git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd zsh-syntax-highlighting laravel);
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
