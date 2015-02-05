@@ -43,3 +43,10 @@ alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\
 if [ -f $DOTFILES/local/aliases ]; then
 	. $DOTFILES/local/aliases
 fi
+
+#TDD with php
+alias phpspec='./vendor/bin/phpspec'
+alias phpspecrun='./vendor/bin/phpspec run -fpretty -v'
+alias phpunit='./vendor/bin/phpunit --testdox --colors'
+alias behat='./vendor/bin/behat'
+alias copy_ssh_key='xclip -sel clip < ~/.ssh/id_rsa.pub'
