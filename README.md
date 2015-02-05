@@ -24,3 +24,7 @@ or your zsh/zshrc similar lines depending on your choosing.
 
     ` cd ~/.dotfiles && ./install.sh `
 
+### Inspiration:
+
+- Github Article on dotfiles http://dotfiles.github.io/
+- Zsh plugins: https://github.com/unixorn/awesome-zsh-plugins
