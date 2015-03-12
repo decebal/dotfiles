@@ -31,7 +31,7 @@ function search() {
 
 function error_log() {
   domains=( 'ro' 'bg' 'hu' )
-  servers=('nginx', 'apache2')
+  servers=('nginx' 'apache2')
 
   if [ $# -eq 0 ]; then
     prefix="www"
@@ -39,14 +39,15 @@ function error_log() {
     prefix="$1"
   fi
 
-  for srv in "${server[@]}"; do
+  for srv in "${servers[@]}"; do
     for d in "${domains[@]}"; do
         file="/var/log/${srv}/${prefix}.emag.${d}-error.log"
         if [ -s $file ]; then
-            break
+            break 2;
         fi
     done
   done
+    echo $file;
   if [ -r $file ]; then
     tail -f $file 
   fi
