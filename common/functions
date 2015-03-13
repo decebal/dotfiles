@@ -49,7 +49,7 @@ function error_log() {
   done
     echo $file;
   if [ -r $file ]; then
-    tail -f $file 
+    grc tail -f $file || tail -f $file
   fi
 }
 
