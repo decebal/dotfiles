@@ -13,7 +13,8 @@ alias cgetg="curl -s https://getcomposer.org/installer | php && sudo mv composer
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gti="git"
 alias pull="git pull"
-alias push="pull && git push"
+alias up="git up"
+alias push="up && git push"
 alias gs="git status"
 alias diff="git difftool -b"
 alias ga='git add'
