@@ -47,7 +47,6 @@ function error_log() {
         fi
     done
   done
-    echo $file;
   if [ -r $file ]; then
     grc tail -f $file || tail -f $file
   fi
@@ -55,7 +54,7 @@ function error_log() {
 
 function access_log() {
   domains=( 'ro' 'bg' 'hu' )
-  servers=('nginx', 'apache2')
+  servers=('nginx' 'apache2')
 
   if [ $# -eq 0 ]; then
     prefix="www"
@@ -63,16 +62,16 @@ function access_log() {
     prefix="$1"
   fi
 
-  for srv in "${server[@]}"; do
+  for srv in "${servers[@]}"; do
     for d in "${domains[@]}"; do
         file="/var/log/${srv}/${prefix}.emag.${d}-access.log"
         if [ -s $file ]; then
-            break
+            break 2;
         fi
     done
   done
   if [ -r $file ]; then
-     tail -f $file | command -v ccze && ccze
+      tail -f $file | command -v ccze && ccze || tail -f $file
   fi
 }
 
