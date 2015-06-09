@@ -58,3 +58,6 @@
 [submodule "zsh/oh-my-zsh/custom/plugins/laravel"]
 	path = zsh/oh-my-zsh/custom/plugins/laravel
 	url = https://github.com/shengyou/laravel-zsh-plugin.git
+[submodule "common/marker"]
+	path = common/marker
+	url = https://github.com/pindexis/marker

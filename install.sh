@@ -46,4 +46,17 @@ git config --global core.excludesfile $DOTFILES/git/gitignore_global
 #touch $DOTFILES/local/functions
 #touch $DOTFILES/local/paths
 
+#install maker
+echo "Do you want cli bookmaker installed ? "
+read mak
+case $mak in 
+    "y")
+        ./install.py
+		;;
+	*)
+		echo "canceled"
+		exit
+		;;
+esac
+
 echo "Restart your shell for modifications to take place"
