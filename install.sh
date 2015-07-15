@@ -55,8 +55,21 @@ case $mak in
 		;;
 	*)
 		echo "canceled"
-		exit
 		;;
 esac
+
+echo "Do you want pomodoro installed ? "
+read mak
+case $mak in 
+    "y")
+        cd common/pomodoro
+        make
+		;;
+	*)
+		echo "canceled"
+		;;
+esac
+
+cd ~
 
 echo "Restart your shell for modifications to take place"

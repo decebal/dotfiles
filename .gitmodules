@@ -61,3 +61,6 @@
 [submodule "common/marker"]
 	path = common/marker
 	url = https://github.com/pindexis/marker
+[submodule "common/pomodoro"]
+	path = common/pomodoro
+	url = https://github.com/mrrrgn/pomodoro-sh.git
