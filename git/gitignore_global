@@ -53,3 +53,4 @@ local/*
 *.local
 
 .idea
+.phpstorm.meta.php
