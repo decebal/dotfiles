@@ -149,6 +149,9 @@
 
 #subtree add
         sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f" 
+        
+#fancy diff, needs npm package diff-so-fancy
+        dsf = "!git diff --color $@ | diff-so-fancy"
 # }}}
     [rerere]
         enabled = true
