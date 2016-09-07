@@ -51,3 +51,4 @@ alias phpspecrun='./vendor/bin/phpspec run -fpretty -v'
 alias phpunit='./vendor/bin/phpunit --testdox --colors'
 alias behat='./vendor/bin/behat'
 alias copy_ssh_key='xclip -sel clip < ~/.ssh/id_rsa.pub'
+
