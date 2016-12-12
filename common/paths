@@ -8,10 +8,13 @@ export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/
 export PATH=$PATH:/usr/local/rvm/bin:$HOME/bin
 export PATH="$PATH:$HOME/.composer/vendor/bin" # Add composer global binaries
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH=~/.npm-global/bin:$PATH
 
 if [ -f $HOME/.rvm/scripts/rvm ]; then
     source $HOME/.rvm/scripts/rvm
 fi
+
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 if [ -f $DOTFILES/local/paths ]; then
 	. $DOTFILES/local/paths
