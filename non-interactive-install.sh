@@ -19,7 +19,7 @@ git config --global core.excludesfile $DOTFILES/git/gitignore_global
 
 
 #create local files
-mkdir $DOTFILES/local
+mkdir -p $DOTFILES/local
 touch $DOTFILES/local/aliases
 touch $DOTFILES/local/functions
 touch $DOTFILES/local/paths
