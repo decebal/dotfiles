@@ -1,27 +1,38 @@
 #!/bin/sh
 
-export GOPATH=$HOME/.goFiles
-export GOROOT=/usr/local/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/
-export PATH=$PATH:/usr/local/rvm/bin:$HOME/bin
-export PATH="$PATH:$HOME/.composer/vendor/bin" # Add composer global binaries
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH=~/.npm-global/bin:$PATH
 
+[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
+
+# ruby & dependecies (not just for ruby dev - needed for sass compilation for
+# example)
+export PATH=$PATH:/usr/local/rvm/bin:$HOME/bin
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 if [ -f $HOME/.rvm/scripts/rvm ]; then
     source $HOME/.rvm/scripts/rvm
 fi
 
+# php dev & environments
+export PATH="$PATH:$HOME/.composer/vendor/bin" # Add composer global binaries
+[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
+
+# javascript/nodejs
+export PATH=~/.npm-global/bin:$PATH
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+
+# golang dev
+export GOPATH=$HOME/.goFiles
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# android development
+export ANDROID_HOME=${HOME}/Android/Sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
 if [ -f $DOTFILES/local/paths ]; then
 	. $DOTFILES/local/paths
 fi
-
-[[ -s "$HOME/.local/share/marker/marker.sh" ]] && source "$HOME/.local/share/marker/marker.sh"
-
-[[ -e ~/.phpbrew/bashrc ]] && source ~/.phpbrew/bashrc
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
