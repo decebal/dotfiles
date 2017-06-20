@@ -30,3 +30,5 @@ fi
 
 umask 0002
 export TERM="xterm-256color"
+
+export PATH="$HOME/.yarn/bin:$PATH"
