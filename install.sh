@@ -7,13 +7,13 @@ case $n in
 	1)
 		echo "creating bash links..."
 		#bash config file
-		ln -sbf $DOTFILES/bash/bashrc $HOME/.bashrc
+		ln -sf $DOTFILES/bash/bashrc $HOME/.bashrc
 		;;
 	2)
 		echo "creating zsh links..."
 		#zsh config file
-		ln -sbf $DOTFILES/zsh/zshrc $HOME/.zshrc
-		ln -sbf $DOTFILES/zsh/oh-my-zsh/ $HOME/.oh-my-zsh
+		ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
+		ln -sf $DOTFILES/zsh/oh-my-zsh/ $HOME/.oh-my-zsh
 		;;
 	*)
 		echo "canceled"
@@ -25,9 +25,9 @@ echo "creating vim links..."
 #vim install
 mv $HOME/.vim $HOME/.vim_old 2>/dev/null
 mv $HOME/.vimrc $HOME/.vimrc_old 2>/dev/null
-ln -sbf $DOTFILES/vim/vim-sources $HOME/.vim
-ln -sbf $DOTFILES/vim/vimrc $HOME/.vimrc
-ln -sbf $DOTFILES/vim/gvimrc $HOME/.gvimrc
+ln -sf $DOTFILES/vim/vim-sources $HOME/.vim
+ln -sf $DOTFILES/vim/vimrc $HOME/.vimrc
+ln -sf $DOTFILES/vim/gvimrc $HOME/.gvimrc
 
 echo "setting up git config & aliases ..."
 #git global configuration
