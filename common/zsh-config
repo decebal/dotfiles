@@ -49,6 +49,6 @@ if [ -f $DOTFILES/zsh/k/k.sh ]; then
 fi
 
 # Change directory on login
-if [[ -o login ]]; then
-    cd /var/www
-fi
+# if [[ -o login ]]; then
+#     cd /var/www
+# fi
