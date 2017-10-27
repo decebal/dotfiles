@@ -28,3 +28,8 @@ or your zsh/zshrc similar lines depending on your choosing.
 
 - Github Article on dotfiles http://dotfiles.github.io/
 - Zsh plugins: https://github.com/unixorn/awesome-zsh-plugins
+
+### updating git submodules
+
+- `git submodule foreach git pull origin master`
+- add vim plugin: `git submodule add https://github.com/vim-airline/vim-airline-themes  vim/vim-sources/bundle/vim-airline-themes`

@@ -64,3 +64,6 @@
 [submodule "common/pomodoro"]
 	path = common/pomodoro
 	url = https://github.com/mrrrgn/pomodoro-sh.git
+[submodule "vim/vim-sources/bundle/vim-airline-themes"]
+	path = vim/vim-sources/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes

@@ -1,4 +1,4 @@
-criptencoding utf-8
+" call criptencoding utf-8
 
 "---------------------------------------------
 " G/Vim settings file for Steven Oliver
@@ -30,7 +30,7 @@ set guioptions+=a
 if has("eval")
     if has('gui_win32') || has('gui_win64')
     elseif has('gui_gtk')        
-        set guifont=Anonymous\ Pro\ for\ Powerline\ 10
+        set guifont=Fira\ Mono\ for\ Powerline\ 10
     elseif has('gui_macvim')
         "use default
     else
@@ -45,3 +45,7 @@ endif
      set titlestring+=%h%m%r%w " flags
      set titlestring+=\ -\ %{substitute(getcwd(),\ $HOME,\ '~',\ '')}  " working directory
  endif
+
+ " color scheme of the moment:
+syntax on
+colorscheme koehler
