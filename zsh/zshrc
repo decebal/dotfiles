@@ -19,13 +19,13 @@ if [ -f $DOTFILES/common/zsh-config ]; then
 fi
 
 # Alias definitions.
-    if [ -f $DOTFILES/common/aliases ]; then
-    . $DOTFILES/common/aliases
-    fi
+if [ -f $DOTFILES/common/aliases ]; then
+. $DOTFILES/common/aliases
+fi
 
-    if [ -f $DOTFILES/common/functions ]; then
-        . $DOTFILES/common/functions
-    fi
+if [ -f $DOTFILES/common/functions ]; then
+    . $DOTFILES/common/functions
+fi
 
 
 umask 0002
