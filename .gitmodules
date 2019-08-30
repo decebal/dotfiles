@@ -67,3 +67,9 @@
 [submodule "vim/vim-sources/bundle/vim-airline-themes"]
 	path = vim/vim-sources/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "zsh/oh-my-zsh/plugins/zsh-autosuggestions"]
+	path = zsh/oh-my-zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/oh-my-zsh/plugins/zsh-docker-aliases"]
+	path = zsh/oh-my-zsh/plugins/zsh-docker-aliases
+	url = https://github.com/luismayta/zsh-docker-aliases
