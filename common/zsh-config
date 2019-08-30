@@ -31,12 +31,8 @@ if [ -f $DOTFILES/local/zsh-config ]; then
 	. $DOTFILES/local/zsh-config
 fi
 
-#if [ -z "$zsh_plugins_list" ]; then
-    #personal favorite plugins, may reduce the list to minimal, not just now
-    #$zsh_plugin_list = "git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd ";
-#fi
 
-plugins=(git gitfast rvm virtualenv composer custom-aliases dircycle ssh-agent sublime symfony2 wd zsh-syntax-highlighting laravel history history-substring-search colorize colored-man-pages autoenv debian emoji-clock nyan pip python go zsh-aws-vault);
+plugins=(git gitfast rvm custom-aliases dircycle ssh-agent wd zsh-syntax-highlighting history history-substring-search colorize colored-man-pages autoenv debian emoji-clock nyan pip python go zsh-aws-vault zsh-docker-aliases zsh-autosuggestions);
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
@@ -48,7 +44,3 @@ if [ -f $DOTFILES/zsh/k/k.sh ]; then
     source $DOTFILES/zsh/k/k.sh
 fi
 
-# Change directory on login
-# if [[ -o login ]]; then
-#     cd /var/www
-# fi
