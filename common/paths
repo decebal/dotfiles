@@ -23,9 +23,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 # golang dev
-#export GOPATH=$HOME/go
-#export GOROOT=/usr/local/go
-#export GOROOT_BOOTSTRAP=/usr/local/go
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
+export GOROOT_BOOTSTRAP=/usr/local/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
