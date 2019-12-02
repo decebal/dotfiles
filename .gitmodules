@@ -73,3 +73,6 @@
 [submodule "zsh/oh-my-zsh/plugins/zsh-docker-aliases"]
 	path = zsh/oh-my-zsh/plugins/zsh-docker-aliases
 	url = https://github.com/luismayta/zsh-docker-aliases
+[submodule "zsh/oh-my-zsh/plugins/navi"]
+	path = zsh/oh-my-zsh/plugins/navi
+	url = https://github.com/denisidoro/navi
