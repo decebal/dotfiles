@@ -130,6 +130,10 @@ function kernelCleanup()
 {
    sudo apt-get remove --purge $(dpkg -l 'linux-image-*' | sed '/^ii/!d;/'"$(uname -r | sed "s/\(.*\)-\([^0-9]\+\)/\1/")"'/d;s/^[^ ]* [^ ]* \([^ ]*\).*/\1/;/[0-9]/!d')
 }
+function switchToLocalContext() {
+    export KUBECONFIG="$(k3d get-kubeconfig --name=k3s-local-brane)"
+    kubectl config  use-context  k3s-local-brane 
+}
 
 if [ -f $DOTFILES/local/functions ]; then
 	. $DOTFILES/local/functions
