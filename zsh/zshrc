@@ -41,3 +41,13 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(oh-my-posh --init --shell zsh --config ~/.poshthemes/dez.omp.json)"
 
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/slss.zsh
