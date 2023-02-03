@@ -39,19 +39,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval "$(oh-my-posh --init --shell zsh --config ~/.poshthemes/dez.omp.json)"
+eval "$(oh-my-posh --init --shell zsh --config $DOTFILES/zsh/.poshthemes/dez.omp.json)"
 
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/decebaldobrica/Projects/Tellimer/monorepo/faas/node_modules/tabtab/.completions/slss.zsh
-# tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
