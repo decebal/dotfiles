@@ -13,27 +13,15 @@
 [submodule "vim/vim-sources/bundle/vim-python-mode"]
 	path = vim/vim-sources/bundle/vim-python-mode
 	url = git://github.com/klen/python-mode.git
-[submodule "vim/vim-sources/bundle/vim-gitgutter"]
-	path = vim/vim-sources/bundle/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter
 [submodule "common/colors"]
 	path = common/colors
 	url = https://github.com/coolwanglu/guake-colors-solarized.git
-[submodule "vim/vim-sources/bundle/vim-sintactic"]
-	path = vim/vim-sources/bundle/vim-sintactic
-	url = https://github.com/scrooloose/syntastic.git
 [submodule "zsh/k"]
 	path = zsh/k
 	url = https://github.com/supercrabtree/k
 [submodule "zsh/oh-my-zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/oh-my-zsh/plugins/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "vim/vim-sources/bundle/vim-commentary"]
-	path = vim/vim-sources/bundle/vim-commentary
-	url = git://github.com/tpope/vim-commentary.git
-[submodule "vim/vim-sources/bundle/vim-eunuch"]
-	path = vim/vim-sources/bundle/vim-eunuch
-	url = git://github.com/tpope/vim-eunuch.git
 [submodule "vim/vim-sources/bundle/vim-fugitive"]
 	path = vim/vim-sources/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
@@ -55,9 +43,6 @@
 [submodule "vim/vim-sources/bundle/vim-colors-solarized"]
 	path = vim/vim-sources/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "zsh/oh-my-zsh/custom/plugins/laravel"]
-	path = zsh/oh-my-zsh/custom/plugins/laravel
-	url = https://github.com/shengyou/laravel-zsh-plugin.git
 [submodule "common/marker"]
 	path = common/marker
 	url = https://github.com/pindexis/marker
@@ -70,9 +55,6 @@
 [submodule "zsh/oh-my-zsh/plugins/zsh-autosuggestions"]
 	path = zsh/oh-my-zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "zsh/oh-my-zsh/plugins/zsh-docker-aliases"]
-	path = zsh/oh-my-zsh/plugins/zsh-docker-aliases
-	url = https://github.com/luismayta/zsh-docker-aliases
 [submodule "zsh/oh-my-zsh/plugins/navi"]
 	path = zsh/oh-my-zsh/plugins/navi
 	url = https://github.com/denisidoro/navi
