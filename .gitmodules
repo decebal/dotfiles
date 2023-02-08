@@ -1,24 +1,21 @@
 [submodule "vim/vim-sources/bundle/vim-airline"]
 	path = vim/vim-sources/bundle/vim-airline
-	url = https://github.com/bling/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
 [submodule "vim/vim-sources/bundle/vim-startify"]
 	path = vim/vim-sources/bundle/vim-startify
-	url = https://github.com/mhinz/vim-startify
+	url = https://github.com/mhinz/vim-startify.git
 [submodule "vim/vim-sources/bundle/vim-bufferline"]
 	path = vim/vim-sources/bundle/vim-bufferline
-	url = https://github.com/bling/vim-bufferline
+	url = https://github.com/bling/vim-bufferline.git
 [submodule "vim/vim-sources/bundle/vim-sensible"]
 	path = vim/vim-sources/bundle/vim-sensible
-	url = git://github.com/tpope/vim-sensible.git
+	url = https://github.com/tpope/vim-sensible.git
 [submodule "vim/vim-sources/bundle/vim-python-mode"]
 	path = vim/vim-sources/bundle/vim-python-mode
 	url = git://github.com/klen/python-mode.git
 [submodule "common/colors"]
 	path = common/colors
 	url = https://github.com/coolwanglu/guake-colors-solarized.git
-[submodule "zsh/k"]
-	path = zsh/k
-	url = https://github.com/supercrabtree/k
 [submodule "zsh/oh-my-zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/oh-my-zsh/plugins/zsh-syntax-highlighting
 	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
@@ -37,24 +34,27 @@
 [submodule "vim/vim-sources/bundle/vim-signify"]
 	path = vim/vim-sources/bundle/vim-signify
 	url = git://github.com/mhinz/vim-signify.git
-[submodule "vim/vim-sources/bundle/vim-tmuxline"]
-	path = vim/vim-sources/bundle/vim-tmuxline
-	url = git://github.com/edkolev/tmuxline.vim
 [submodule "vim/vim-sources/bundle/vim-colors-solarized"]
 	path = vim/vim-sources/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "common/marker"]
-	path = common/marker
-	url = https://github.com/pindexis/marker
+[submodule "vim/vim-sources/bundle/vim-gitgutter"]
+	path = vim/vim-sources/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "vim/vim-sources/bundle/vim-commentary"]
+	path = vim/vim-sources/bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "vim/vim-sources/bundle/vim-eunuch"]
+	path = vim/vim-sources/bundle/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch.git
 [submodule "common/pomodoro"]
 	path = common/pomodoro
 	url = https://github.com/mrrrgn/pomodoro-sh.git
 [submodule "vim/vim-sources/bundle/vim-airline-themes"]
 	path = vim/vim-sources/bundle/vim-airline-themes
-	url = https://github.com/vim-airline/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
 [submodule "zsh/oh-my-zsh/plugins/zsh-autosuggestions"]
 	path = zsh/oh-my-zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "zsh/oh-my-zsh/plugins/navi"]
 	path = zsh/oh-my-zsh/plugins/navi
-	url = https://github.com/denisidoro/navi
+	url = https://github.com/denisidoro/navi.git
