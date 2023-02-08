@@ -12,31 +12,31 @@
 	url = https://github.com/tpope/vim-sensible.git
 [submodule "vim/vim-sources/bundle/vim-python-mode"]
 	path = vim/vim-sources/bundle/vim-python-mode
-	url = git://github.com/klen/python-mode.git
+	url = https://github.com/python-mode/python-mode.git
 [submodule "common/colors"]
 	path = common/colors
 	url = https://github.com/coolwanglu/guake-colors-solarized.git
 [submodule "zsh/oh-my-zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/oh-my-zsh/plugins/zsh-syntax-highlighting
-	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "vim/vim-sources/bundle/vim-fugitive"]
 	path = vim/vim-sources/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/vim-sources/bundle/vim-surround"]
 	path = vim/vim-sources/bundle/vim-surround
-	url = git://github.com/tpope/vim-surround.git
+	url = https://github.com/tpope/vim-surround.git
 [submodule "vim/vim-sources/bundle/vim-repeat"]
 	path = vim/vim-sources/bundle/vim-repeat
-	url = git://github.com/tpope/vim-repeat.git
+	url = https://github.com/tpope/vim-repeat.git
 [submodule "vim/vim-sources/bundle/vim-projectionist"]
 	path = vim/vim-sources/bundle/vim-projectionist
-	url = git://github.com/tpope/vim-projectionist.git
+	url = https://github.com/tpope/vim-projectionist.git
 [submodule "vim/vim-sources/bundle/vim-signify"]
 	path = vim/vim-sources/bundle/vim-signify
-	url = git://github.com/mhinz/vim-signify.git
+	url = https://github.com/mhinz/vim-signify.git
 [submodule "vim/vim-sources/bundle/vim-colors-solarized"]
 	path = vim/vim-sources/bundle/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
+	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/vim-sources/bundle/vim-gitgutter"]
 	path = vim/vim-sources/bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
