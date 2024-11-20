@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 #!/bin/zsh
 #Path to your oh-my-zsh configuration.
 
@@ -54,3 +56,13 @@ if [ -f '/Users/decebaldobrica/Projects/tools/google-cloud-sdk/path.zsh.inc' ]; 
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/decebaldobrica/Projects/tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/decebaldobrica/Projects/tools/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+export PATH="$PATH:/Users/decebaldobrica/.cyfrin/bin"
+
+[[ -s "/Users/decebaldobrica/.gvm/scripts/gvm" ]] && source "/Users/decebaldobrica/.gvm/scripts/gvm"
