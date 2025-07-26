@@ -32,7 +32,7 @@ if [ -f $DOTFILES/local/zsh-config ]; then
 fi
 
 
-plugins=(git gitfast rvm custom-aliases dircycle ssh-agent wd zsh-syntax-highlighting history history-substring-search colorize colored-man-pages autoenv debian emoji-clock nyan pip python go direnv hook zsh-autosuggestions navi poetry);
+plugins=(git gitfast rvm custom-aliases dircycle ssh-agent wd zsh-syntax-highlighting history history-substring-search colorize colored-man-pages autoenv debian emoji-clock pip python golang  direnv hook zsh-autosuggestions navi rust);
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
 if [ -f $ZSH/oh-my-zsh.sh ]; then
