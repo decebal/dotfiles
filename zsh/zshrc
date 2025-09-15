@@ -5,19 +5,36 @@
 
 DOTFILES=$HOME/.dotfiles
 ZSH=$DOTFILES/zsh/oh-my-zsh
-zsh_theme="powerline"
 
+# Load master config first if it exists
 if [ -f $DOTFILES/local/master-config.sh ]; then
 	. $DOTFILES/local/master-config.sh
 fi
 
-# Customize to your needs...
+# Load common paths
 if [ -f $DOTFILES/common/paths ]; then
 	. $DOTFILES/common/paths
 fi
 
-if [ -f $DOTFILES/common/zsh-config ]; then
-	. $DOTFILES/common/zsh-config
+# Detect AI Agent context and load appropriate configuration
+# Supports multiple AI environments: Cursor, GitHub Copilot, etc.
+if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]]; then
+    # Load minimal agent-optimized configuration
+    export AI_AGENT_CONTEXT=1
+    if [ -f $DOTFILES/common/zsh-agent-config ]; then
+        . $DOTFILES/common/zsh-agent-config
+    fi
+else
+    # Load full-featured normal configuration
+    zsh_theme="powerline"
+    if [ -f $DOTFILES/common/zsh-normal-config ]; then
+        . $DOTFILES/common/zsh-normal-config
+    else
+        # Fallback to original config if new one doesn't exist
+        if [ -f $DOTFILES/common/zsh-config ]; then
+            . $DOTFILES/common/zsh-config
+        fi
+    fi
 fi
 
 # Alias definitions.
@@ -41,7 +58,21 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval "$(oh-my-posh --init --shell zsh --config ~/.poshthemes/material.omp.json)"
+# Load prompt theme (oh-my-posh or oh-my-zsh) - resolves conflicts automatically
+# This should be loaded AFTER oh-my-zsh to properly override themes
+if [[ -z "$AI_AGENT_CONTEXT" ]]; then
+    # Source performance optimizations
+    if [ -f $DOTFILES/common/shell-performance.sh ]; then
+        . $DOTFILES/common/shell-performance.sh
+    fi
+
+    # Setup the prompt theme (handles oh-my-posh vs oh-my-zsh conflict)
+    if command -v oh-my-posh &>/dev/null && [ -z "$DISABLE_OH_MY_POSH" ] && [ -f ~/.poshthemes/material.omp.json ]; then
+        # Oh-my-posh takes precedence when available
+        eval "$(oh-my-posh init zsh --config ~/.poshthemes/material.omp.json)"
+    fi
+    # Note: If oh-my-posh is not used, oh-my-zsh theme from zsh-normal-config will be active
+fi
 
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true

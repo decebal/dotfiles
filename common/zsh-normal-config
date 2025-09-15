@@ -1,0 +1,123 @@
+#!/bin/zsh
+# ZSH Configuration for Normal Interactive Mode
+# Full-featured configuration with all bells and whistles
+
+ZSH=$DOTFILES/zsh/oh-my-zsh
+
+# Load local setup if exists
+if [ -f $DOTFILES/local/zsh-setup ]; then
+	. $DOTFILES/local/zsh-setup
+fi
+
+# SSH agent configuration
+if [ "$is_server" = true ]; then
+    eval $(ssh-agent)
+    /usr/bin/ssh-add
+fi
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+# Auto-update settings
+DISABLE_UPDATE_PROMPT=true
+DISABLE_AUTO_UPDATE=false
+
+# Theme configuration
+# Note: When oh-my-posh is active, we skip oh-my-zsh themes
+if command -v oh-my-posh &> /dev/null && [ -z "$DISABLE_OH_MY_POSH" ]; then
+    # Oh-my-posh handles the prompt, skip oh-my-zsh theme
+    ZSH_THEME=""
+    export USE_OH_MY_POSH=1
+else
+    # Use oh-my-zsh themes
+    if [ -z "$zsh_theme" ]; then
+        ZSH_THEME="robbyrussell"  # Default to simple, fast theme
+    elif [ "$zsh_theme" = 'powerline' ]; then
+        # Powerline configuration for oh-my-zsh
+        if [ -f $DOTFILES/common/powerline-zsh-config ]; then
+            . $DOTFILES/common/powerline-zsh-config
+        fi
+    else
+        ZSH_THEME="$zsh_theme"
+    fi
+fi
+
+export LS_OPTIONS='--color=auto'
+COMPLETION_WAITING_DOTS="true"
+
+# Load local config if exists
+if [ -f $DOTFILES/local/zsh-config ]; then
+	. $DOTFILES/local/zsh-config
+fi
+
+# Optimized plugin set for interactive use
+# Core plugins - always loaded
+plugins=(
+    git                      # Git aliases and functions
+    ssh-agent               # SSH key management
+    history                 # Better history management
+    history-substring-search # Search history with arrow keys
+    last-working-dir        # Remember last working directory
+)
+
+# Performance-optimized plugins
+plugins+=(
+    gitfast                 # Faster git completions (replaces git plugin completions)
+    zsh-syntax-highlighting # Syntax highlighting (load early for better performance)
+    zsh-autosuggestions    # Fish-like autosuggestions
+)
+
+# Development tools (conditionally loaded)
+command -v python3 &>/dev/null && plugins+=(pip python)
+command -v go &>/dev/null && plugins+=(golang)
+command -v rvm &>/dev/null && plugins+=(rvm)
+command -v navi &>/dev/null && plugins+=(navi)
+command -v brew &>/dev/null && plugins+=(brew)          # Homebrew shortcuts
+command -v docker &>/dev/null && plugins+=(docker)      # Docker completions
+command -v npm &>/dev/null && plugins+=(npm)            # npm completions
+# VS Code plugin doesn't exist in this oh-my-zsh version
+
+# System-specific plugins
+[[ "$OSTYPE" == "linux-gnu"* ]] && [[ -f /etc/debian_version ]] && plugins+=(debian)
+[[ "$OSTYPE" == "darwin"* ]] && plugins+=(macos)
+
+# Utility plugins
+plugins+=(
+    dircycle               # Cycle through directory stack with Ctrl+Shift+Left/Right
+    wd                     # Warp directories
+    colorize               # Syntax highlighting for cat
+    autoenv                # Auto-source .env files
+    z                      # Jump to frequently used directories
+    extract                # Extract any archive with 'extract <file>'
+    copyfile               # Copy file contents to clipboard: copyfile <file>
+    copypath               # Copy current path to clipboard: copypath
+    web-search             # Search from terminal: google "search term"
+    sudo                   # Press ESC twice to add sudo to current command
+    command-not-found      # Suggest packages when command not found
+    common-aliases         # Useful common aliases
+)
+
+# Advanced plugins (can be performance intensive)
+if [ "${ENABLE_ADVANCED_PLUGINS:-true}" = "true" ]; then
+    plugins+=(
+        per-directory-history  # Separate history per directory
+    )
+fi
+
+# Optional fun plugins (can be disabled for performance)
+if [ "${ENABLE_FUN_PLUGINS:-false}" = "true" ]; then
+    plugins+=(emoji-clock)
+fi
+
+# Add completions
+fpath=($DOTFILES/zsh-completions/src $fpath)
+
+# Load Oh My Zsh
+if [ -f $ZSH/oh-my-zsh.sh ]; then
+    source $ZSH/oh-my-zsh.sh
+fi
+
+# k git-zsh list directory plugin
+if [ -f $DOTFILES/zsh/k/k.sh ]; then
+    source $DOTFILES/zsh/k/k.sh
+fi
+
+export EDITOR=vim

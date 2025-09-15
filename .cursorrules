@@ -1,0 +1,44 @@
+# Dotfiles Repository Context
+
+This is a personal dotfiles repository for managing shell configurations (bash/zsh), vim settings, and development tools.
+
+## Repository Structure
+- `/bash/` - Bash-specific configurations and completions
+- `/zsh/` - Zsh configurations including oh-my-zsh framework
+- `/common/` - Shared configurations between shells (aliases, functions, paths)
+- `/vim/` - Vim configurations and plugins
+- `/git/` - Git configuration files
+- `/local/` - Machine-specific local configurations (not tracked in git)
+
+## Key Configuration Files
+- `zsh/zshrc` - Main Zsh configuration
+- `common/aliases` - Shell aliases
+- `common/functions` - Shell functions
+- `common/paths` - PATH configurations
+- `common/zsh-config` - Zsh-specific settings
+
+## Active Shell Framework
+- Oh-My-Zsh with plugins: git, gitfast, zsh-syntax-highlighting, history-substring-search, direnv, zsh-autosuggestions
+- Oh-My-Posh prompt with material theme
+- Powerline theme support
+
+## Development Tools Configured
+- NVM (Node Version Manager)
+- PyEnv (Python Version Manager)
+- GVM (Go Version Manager)
+- pnpm, yarn package managers
+- Terraform
+- Docker/Rancher Desktop
+- Windsurf IDE
+
+## Important Conventions
+1. Machine-specific configs go in `/local/` directory
+2. Common settings shared between shells in `/common/`
+3. Environment variable `DOTFILES` points to `~/.dotfiles`
+4. Support for both server and desktop environments
+
+## When Making Changes
+- Test compatibility with both bash and zsh
+- Preserve existing PATH and environment configurations
+- Check for existence of files/commands before sourcing/executing
+- Maintain compatibility with existing tools (nvm, pyenv, etc.)
