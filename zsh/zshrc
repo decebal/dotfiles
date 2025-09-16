@@ -17,8 +17,8 @@ if [ -f $DOTFILES/common/paths ]; then
 fi
 
 # Detect AI Agent context and load appropriate configuration
-# Supports multiple AI environments: Cursor, GitHub Copilot, etc.
-if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]]; then
+# Supports multiple AI environments: Cursor, GitHub Copilot, Windsurf, etc.
+if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]] || [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]]; then
     # Load minimal agent-optimized configuration
     export AI_AGENT_CONTEXT=1
     if [ -f $DOTFILES/common/zsh-agent-config ]; then

@@ -32,12 +32,23 @@ The shell configuration automatically detects AI agent environments and loads a 
 - `CURSOR_AGENT`
 - `GITHUB_COPILOT_AGENT`
 - `AI_AGENT`
+- `WINDSURF_PID` (Windsurf IDE)
+- `VSCODE_PID` (VS Code/Windsurf)
 
 In agent mode:
 - Simple prompt is used (no powerline/oh-my-posh)
-- Minimal plugin set (only git, gitfast, ssh-agent)
+- Minimal plugin set (git, gitfast, ssh-agent, last-working-dir, z)
 - Auto-updates are disabled
 - Complex themes are skipped
+- Optimized for fast shell loading and AI interactions
+
+### Windsurf-Specific Features
+
+When running in Windsurf, additional optimizations are applied:
+- Fast command completion for AI interactions
+- Optimized history settings for better AI context
+- Windsurf CLI path integration (if available)
+- Helper functions: `windsurf-here` and `windsurf-check`
 
 ## File Structure Overview
 
@@ -74,9 +85,20 @@ To test agent mode manually:
 CURSOR_AGENT=1 zsh
 ```
 
+To test Windsurf mode:
+```bash
+WINDSURF_PID=12345 zsh
+```
+
 To check which mode is active:
 ```bash
 echo $AI_AGENT_CONTEXT
+echo $WINDSURF_CONTEXT
+```
+
+To check Windsurf optimization status:
+```bash
+windsurf-check
 ```
 
 ## Version Control

@@ -32,7 +32,7 @@ if [ -f $DOTFILES/local/zsh-config ]; then
 fi
 
 # Minimal plugin set for agent mode - only essentials
-plugins=(git gitfast ssh-agent last-working-dir)
+plugins=(git gitfast ssh-agent last-working-dir z)
 
 # Add completions
 fpath=($DOTFILES/zsh-completions/src $fpath)
@@ -47,6 +47,33 @@ export EDITOR=vim
 # Set agent mode indicator
 export AI_AGENT_MODE=1
 
+# Windsurf-specific optimizations
+if [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]]; then
+    export WINDSURF_CONTEXT=1
+
+    # Optimize for Windsurf's Cascade AI features
+    export TERM_PROGRAM_VERSION="${TERM_PROGRAM_VERSION:-windsurf}"
+
+    # Enable better command completion for AI
+    setopt AUTO_MENU
+    setopt COMPLETE_IN_WORD
+    setopt ALWAYS_TO_END
+
+    # Reduce completion delay for faster AI interactions
+    export KEYTIMEOUT=1
+
+    # Enable history for better AI context
+    setopt SHARE_HISTORY
+    setopt HIST_VERIFY
+    setopt HIST_IGNORE_ALL_DUPS
+    setopt HIST_FIND_NO_DUPS
+
+    # Windsurf PATH optimization (if windsurf CLI is available)
+    if [[ -d "/Applications/Windsurf.app/Contents/Resources/app/bin" ]]; then
+        export PATH="/Applications/Windsurf.app/Contents/Resources/app/bin:$PATH"
+    fi
+fi
+
 # Simplified prompt for agent mode
 PROMPT='%n@%m:%~$ '
 
@@ -55,3 +82,30 @@ unsetopt PROMPT_SP
 unsetopt PROMPT_CR
 setopt PROMPT_PERCENT
 setopt TRANSIENT_RPROMPT
+
+# Windsurf helper functions
+if [[ -n "$WINDSURF_CONTEXT" ]]; then
+    # Quick function to open current directory in Windsurf
+    windsurf-here() {
+        if command -v windsurf &> /dev/null; then
+            windsurf "${1:-.}"
+        else
+            echo "Windsurf CLI not found. Install it from Windsurf → Command Palette → Install 'windsurf' command"
+        fi
+    }
+
+    # Function to check AI agent detection
+    windsurf-check() {
+        echo "🌪️  Windsurf Terminal Optimization Status:"
+        echo "   WINDSURF_PID: ${WINDSURF_PID:-'not set'}"
+        echo "   VSCODE_PID: ${VSCODE_PID:-'not set'}"
+        echo "   AI_AGENT_CONTEXT: ${AI_AGENT_CONTEXT:-'not set'}"
+        echo "   WINDSURF_CONTEXT: ${WINDSURF_CONTEXT:-'not set'}"
+        echo "   Active plugins: ${plugins[@]}"
+        if command -v windsurf &> /dev/null; then
+            echo "   ✅ Windsurf CLI available"
+        else
+            echo "   ❌ Windsurf CLI not found"
+        fi
+    }
+fi

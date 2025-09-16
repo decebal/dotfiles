@@ -4,7 +4,8 @@
       "Bash(find:*)",
       "Bash(test:*)",
       "Bash(git submodule:*)",
-      "Bash(source:*)"
+      "Bash(source:*)",
+      "Bash(z:*)"
     ],
     "deny": [],
     "ask": []
