@@ -280,10 +280,11 @@ install_optional_tools() {
     echo "  1) Node Version Manager (nvm)"
     echo "  2) Python Version Manager (pyenv)"
     echo "  3) Oh My Posh (prompt theme)"
-    echo "  4) All of the above"
-    echo "  5) None"
+    echo "  4) GitHub Copilot CLI (AI assistant)"
+    echo "  5) All of the above"
+    echo "  6) None"
     echo ""
-    read -p "Enter your choice [1-5]: " tools_choice
+    read -p "Enter your choice [1-6]: " tools_choice
 
     case $tools_choice in
         1)
@@ -296,11 +297,15 @@ install_optional_tools() {
             check_oh_my_posh
             ;;
         4)
+            setup_github_copilot
+            ;;
+        5)
             check_nvm
             check_pyenv
             check_oh_my_posh
+            setup_github_copilot
             ;;
-        5)
+        6)
             log "Skipping optional tools"
             ;;
         *)
@@ -344,6 +349,80 @@ check_oh_my_posh() {
         fi
     else
         log "Oh My Posh is already installed ✓"
+    fi
+}
+
+# Setup GitHub Copilot CLI
+setup_github_copilot() {
+    log "Setting up GitHub Copilot CLI integration..."
+    
+    # Check if GitHub CLI is installed
+    if ! command -v gh &>/dev/null; then
+        info "GitHub CLI is required for Copilot integration"
+        read -p "Would you like to install GitHub CLI first? [y/N]: " install_gh
+        if [[ "$install_gh" =~ ^[Yy]$ ]]; then
+            if command -v brew &>/dev/null; then
+                info "Installing GitHub CLI via Homebrew..."
+                brew install gh
+            else
+                error "Homebrew not found. Please install GitHub CLI manually from: https://cli.github.com/"
+                return 1
+            fi
+        else
+            warning "Skipping GitHub Copilot setup - requires GitHub CLI"
+            return 0
+        fi
+    fi
+    
+    log "GitHub CLI found: $(gh --version | head -1)"
+    
+    # Check authentication
+    if ! gh auth status &>/dev/null; then
+        info "You need to authenticate with GitHub for Copilot access"
+        read -p "Would you like to authenticate now? [y/N]: " do_auth
+        if [[ "$do_auth" =~ ^[Yy]$ ]]; then
+            gh auth login
+        else
+            warning "GitHub authentication skipped. Run 'gh auth login' later to use Copilot"
+            return 0
+        fi
+    fi
+    
+    log "GitHub authentication verified ✓"
+    
+    # Check if Copilot extension is installed
+    if gh copilot --version &>/dev/null; then
+        log "GitHub Copilot CLI extension already installed ✓"
+        gh copilot --version
+    else
+        info "Installing GitHub Copilot CLI extension..."
+        if gh extension install github/gh-copilot; then
+            log "GitHub Copilot CLI extension installed successfully ✓"
+        else
+            error "Failed to install GitHub Copilot CLI extension"
+            warning "You may need a GitHub Copilot subscription. Visit: https://github.com/settings/copilot"
+            return 1
+        fi
+    fi
+    
+    # Test installation
+    if gh copilot --help &>/dev/null; then
+        log "GitHub Copilot CLI is working correctly ✓"
+        
+        echo ""
+        info "🎉 GitHub Copilot CLI setup complete!"
+        info "You can now use:"
+        info "  • gh copilot suggest 'your command description'"
+        info "  • gh copilot explain 'command to explain'"
+        info "  • gcs 'description' (alias for suggest)"
+        info "  • gce 'command' (alias for explain)"
+        info "  • fix-last (fix the last failed command)"
+        info "  • explain-last (explain the last command)"
+        info "  • ai-status (check AI integration status)"
+        echo ""
+    else
+        error "GitHub Copilot CLI installation verification failed"
+        return 1
     fi
 }
 
@@ -416,6 +495,8 @@ main() {
         info "  3. Your old configuration was backed up to: $BACKUP_DIR"
     fi
     info "  4. Customize your local settings in: $DOTFILES/local/"
+    info "  5. Your shell is optimized for AI tools (GitHub Copilot, VS Code, Windsurf)"
+    info "     Run 'ai-status' to check AI integration status"
     echo ""
     echo "════════════════════════════════════════════════════════"
     echo ""

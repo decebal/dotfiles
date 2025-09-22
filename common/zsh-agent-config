@@ -26,6 +26,10 @@ ZSH_THEME="robbyrussell"  # Simple, clean theme
 export LS_OPTIONS='--color=auto'
 COMPLETION_WAITING_DOTS="false"  # Disable for cleaner output
 
+# GitHub Copilot optimization settings
+export COPILOT_DISABLE_TELEMETRY=true  # Optional: disable telemetry
+export GITHUB_COPILOT_DISABLE_ANALYTICS=true  # Optional: disable analytics
+
 # Load local config if exists
 if [ -f $DOTFILES/local/zsh-config ]; then
 	. $DOTFILES/local/zsh-config
@@ -47,20 +51,40 @@ export EDITOR=vim
 # Set agent mode indicator
 export AI_AGENT_MODE=1
 
-# Windsurf-specific optimizations
-if [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]]; then
-    export WINDSURF_CONTEXT=1
+# Load GitHub Copilot integration
+if [ -f $DOTFILES/common/copilot-integration.zsh ]; then
+    . $DOTFILES/common/copilot-integration.zsh
+fi
 
-    # Optimize for Windsurf's Cascade AI features
+# VS Code and AI Editor optimizations (Windsurf, GitHub Copilot, Cursor)
+if [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]] || [[ "$TERM_PROGRAM" == "vscode" ]] || [[ -n "$VSCODE_INJECTION" ]]; then
+    export WINDSURF_CONTEXT=1
+    export VSCODE_CONTEXT=1
+
+    # Optimize for AI features (Copilot, Windsurf Cascade, etc.)
     export TERM_PROGRAM_VERSION="${TERM_PROGRAM_VERSION:-windsurf}"
 
     # Enable better command completion for AI
     setopt AUTO_MENU
     setopt COMPLETE_IN_WORD
     setopt ALWAYS_TO_END
+    setopt MENU_COMPLETE  # Auto-select first completion for faster AI parsing
 
     # Reduce completion delay for faster AI interactions
     export KEYTIMEOUT=1
+
+    # VS Code terminal integration
+    if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+        # Enable VS Code's shell integration for better Copilot context
+        export VSCODE_SHELL_INTEGRATION=1
+        
+        # Optimize for GitHub Copilot in VS Code terminal
+        export GITHUB_COPILOT_TERMINAL=1
+        
+        # Better command output formatting for AI parsing
+        export COLUMNS=${COLUMNS:-120}  # Consistent width for AI readability
+        export LINES=${LINES:-30}       # Standard height
+    fi
 
     # Enable history for better AI context
     setopt SHARE_HISTORY
@@ -83,8 +107,8 @@ unsetopt PROMPT_CR
 setopt PROMPT_PERCENT
 setopt TRANSIENT_RPROMPT
 
-# Windsurf helper functions
-if [[ -n "$WINDSURF_CONTEXT" ]]; then
+# VS Code and AI Editor helper functions
+if [[ -n "$WINDSURF_CONTEXT" ]] || [[ -n "$VSCODE_CONTEXT" ]]; then
     # Quick function to open current directory in Windsurf
     windsurf-here() {
         if command -v windsurf &> /dev/null; then
@@ -94,18 +118,84 @@ if [[ -n "$WINDSURF_CONTEXT" ]]; then
         fi
     }
 
+    # VS Code helper function
+    code-here() {
+        if command -v code &> /dev/null; then
+            code "${1:-.}"
+        else
+            echo "VS Code CLI not found. Install it from VS Code → Command Palette → Install 'code' command"
+        fi
+    }
+
+    # GitHub Copilot helper functions
+    copilot-status() {
+        echo "🤖 GitHub Copilot Terminal Status:"
+        echo "   GITHUB_COPILOT_TERMINAL: ${GITHUB_COPILOT_TERMINAL:-'not set'}"
+        echo "   TERM_PROGRAM: ${TERM_PROGRAM:-'not set'}"
+        echo "   VSCODE_SHELL_INTEGRATION: ${VSCODE_SHELL_INTEGRATION:-'not set'}"
+        if command -v gh &> /dev/null; then
+            echo "   ✅ GitHub CLI available"
+            if gh copilot --version &> /dev/null; then
+                echo "   ✅ GitHub Copilot CLI extension available"
+            else
+                echo "   ❌ GitHub Copilot CLI extension not found (run: gh extension install github/gh-copilot)"
+            fi
+        else
+            echo "   ❌ GitHub CLI not found"
+        fi
+    }
+
+    # Quick function to ask GitHub Copilot for help
+    ask-copilot() {
+        if command -v gh &> /dev/null && gh copilot --version &> /dev/null; then
+            gh copilot suggest "$*"
+        else
+            echo "GitHub Copilot CLI not available. Install with: gh extension install github/gh-copilot"
+        fi
+    }
+
+    # Function to explain a command using GitHub Copilot
+    explain-cmd() {
+        if command -v gh &> /dev/null && gh copilot --version &> /dev/null; then
+            gh copilot explain "$*"
+        else
+            echo "GitHub Copilot CLI not available. Install with: gh extension install github/gh-copilot"
+        fi
+    }
+
     # Function to check AI agent detection
-    windsurf-check() {
-        echo "🌪️  Windsurf Terminal Optimization Status:"
+    ai-status() {
+        echo "🤖 AI Terminal Optimization Status:"
         echo "   WINDSURF_PID: ${WINDSURF_PID:-'not set'}"
         echo "   VSCODE_PID: ${VSCODE_PID:-'not set'}"
+        echo "   TERM_PROGRAM: ${TERM_PROGRAM:-'not set'}"
         echo "   AI_AGENT_CONTEXT: ${AI_AGENT_CONTEXT:-'not set'}"
         echo "   WINDSURF_CONTEXT: ${WINDSURF_CONTEXT:-'not set'}"
+        echo "   VSCODE_CONTEXT: ${VSCODE_CONTEXT:-'not set'}"
+        echo "   GITHUB_COPILOT_TERMINAL: ${GITHUB_COPILOT_TERMINAL:-'not set'}"
         echo "   Active plugins: ${plugins[@]}"
+        
         if command -v windsurf &> /dev/null; then
             echo "   ✅ Windsurf CLI available"
         else
             echo "   ❌ Windsurf CLI not found"
+        fi
+        
+        if command -v code &> /dev/null; then
+            echo "   ✅ VS Code CLI available"
+        else
+            echo "   ❌ VS Code CLI not found"
+        fi
+        
+        if command -v gh &> /dev/null; then
+            echo "   ✅ GitHub CLI available"
+            if gh copilot --version &> /dev/null; then
+                echo "   ✅ GitHub Copilot CLI extension available"
+            else
+                echo "   ❌ GitHub Copilot CLI extension not found"
+            fi
+        else
+            echo "   ❌ GitHub CLI not found"
         fi
     }
 fi

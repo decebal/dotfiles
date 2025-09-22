@@ -222,6 +222,34 @@ if [ -n "$ZSH_VERSION" ] && [ "${DISABLE_EXEC_TIME:-0}" != "1" ]; then
 fi
 
 # ============================================================================
+# GitHub Copilot Terminal Optimizations
+# ============================================================================
+
+# Optimize terminal for GitHub Copilot and AI tools
+if [[ "$TERM_PROGRAM" == "vscode" ]] || [[ -n "$VSCODE_PID" ]] || [[ -n "$GITHUB_COPILOT_TERMINAL" ]]; then
+    # Consistent terminal dimensions for AI parsing
+    export COLUMNS=${COLUMNS:-120}
+    export LINES=${LINES:-30}
+    
+    # Optimize command completion for AI
+    if [ -n "$ZSH_VERSION" ]; then
+        setopt AUTO_MENU
+        setopt COMPLETE_IN_WORD
+        setopt ALWAYS_TO_END
+        setopt LIST_PACKED  # Compact completion lists
+        setopt LIST_TYPES   # Show file types in completion
+    fi
+    
+    # Faster history for AI context
+    export HISTSIZE=5000  # Reasonable size for AI context
+    export SAVEHIST=5000
+    
+    # Disable slow features in AI mode
+    export DISABLE_EXEC_TIME=1  # Disable execution time display
+    unset RPS1  # Clear right prompt for cleaner output
+fi
+
+# ============================================================================
 # Export Performance Settings
 # ============================================================================
 
