@@ -39,9 +39,6 @@ if [ -f $ZSH/oh-my-zsh.sh ]; then
     source $ZSH/oh-my-zsh.sh
 fi
 
-#k git-zsh list directory plugin
-if [ -f $DOTFILES/zsh/k/k.sh ]; then
-    source $DOTFILES/zsh/k/k.sh
-fi
+eval "$(direnv hook zsh)"
 
 export EDITOR=vim
