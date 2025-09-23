@@ -18,6 +18,9 @@ if [ -f $DOTFILES/common/paths ]; then
 	. $DOTFILES/common/paths
 fi
 
+# Temporarily disable oh-my-posh to use powerline theme
+export DISABLE_OH_MY_POSH=1
+
 # Detect AI Agent context and load appropriate configuration
 # Supports multiple AI environments: Cursor, GitHub Copilot, Windsurf, etc.
 if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]] || [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]]; then
@@ -105,7 +108,8 @@ export PATH="/Users/decebaldobrica/.rd/bin:$PATH"
 export PATH="/Users/decebaldobrica/.codeium/windsurf/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+# Only initialize pyenv if it's installed
+command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init - zsh)"
 
 # bum
 export BUM_INSTALL="$HOME/.bum"
