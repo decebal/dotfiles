@@ -22,8 +22,8 @@ fi
 export DISABLE_OH_MY_POSH=1
 
 # Detect AI Agent context and load appropriate configuration
-# Supports multiple AI environments: Cursor, GitHub Copilot, Windsurf, etc.
-if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]] || [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]]; then
+# Supports multiple AI environments: Cursor, GitHub Copilot, Windsurf, VS Code, etc.
+if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]] || [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]] || [[ "$TERM_PROGRAM" == "vscode" ]] || [[ -n "$VSCODE_INJECTION" ]]; then
     # Load minimal agent-optimized configuration
     export AI_AGENT_CONTEXT=1
     if [ -f $DOTFILES/common/zsh-agent-config ]; then

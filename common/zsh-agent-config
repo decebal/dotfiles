@@ -78,6 +78,9 @@ if [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]] || [[ "$TERM_PROGRAM" == "
         # Enable VS Code's shell integration for better Copilot context
         export VSCODE_SHELL_INTEGRATION=1
         
+        # VS Code shell integration script - enables command detection, decorations, and navigation
+        [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+        
         # Optimize for GitHub Copilot in VS Code terminal
         export GITHUB_COPILOT_TERMINAL=1
         
@@ -91,6 +94,28 @@ if [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]] || [[ "$TERM_PROGRAM" == "
     setopt HIST_VERIFY
     setopt HIST_IGNORE_ALL_DUPS
     setopt HIST_FIND_NO_DUPS
+    setopt EXTENDED_HISTORY        # Save timestamp with history
+    setopt HIST_EXPIRE_DUPS_FIRST  # Expire duplicates first
+    setopt HIST_SAVE_NO_DUPS       # Don't save duplicates
+    
+    # Enhanced history settings for AI context
+    export HISTSIZE=10000
+    export SAVEHIST=10000
+    export HISTFILE="$HOME/.zsh_history"
+    
+    # Enable better command output for AI parsing
+    setopt PRINT_EXIT_VALUE        # Show exit codes for failed commands
+    setopt LONG_LIST_JOBS          # Show more job information
+    setopt NOTIFY                  # Report status of background jobs immediately
+    
+    # Disable unnecessary output for cleaner AI parsing
+    unsetopt BEEP                  # No beeping
+    unsetopt FLOW_CONTROL          # Disable Ctrl-S/Ctrl-Q
+    
+    # Enable better completion for AI assistance
+    setopt GLOB_COMPLETE           # Show completions for glob patterns
+    setopt HASH_LIST_ALL           # Hash command locations
+    setopt AUTO_LIST               # Automatically list choices on ambiguous completion
 
     # Windsurf PATH optimization (if windsurf CLI is available)
     if [[ -d "/Applications/Windsurf.app/Contents/Resources/app/bin" ]]; then
@@ -183,6 +208,11 @@ if [[ -n "$WINDSURF_CONTEXT" ]] || [[ -n "$VSCODE_CONTEXT" ]]; then
         
         if command -v code &> /dev/null; then
             echo "   ✅ VS Code CLI available"
+            if [[ "$TERM_PROGRAM" == "vscode" ]] && code --locate-shell-integration-path zsh &> /dev/null; then
+                echo "   ✅ VS Code shell integration available"
+            else
+                echo "   ❌ VS Code shell integration not available"
+            fi
         else
             echo "   ❌ VS Code CLI not found"
         fi
@@ -197,5 +227,80 @@ if [[ -n "$WINDSURF_CONTEXT" ]] || [[ -n "$VSCODE_CONTEXT" ]]; then
         else
             echo "   ❌ GitHub CLI not found"
         fi
+    }
+    
+    # Enhanced functions for better AI interaction
+    
+    # Function to format command output for AI parsing
+    format-for-ai() {
+        if [ $# -eq 0 ]; then
+            echo "Usage: format-for-ai <command>"
+            echo "Formats command output for better AI assistant parsing"
+            return 1
+        fi
+        
+        echo "=== Command: $* ==="
+        echo "=== Working Directory: $(pwd) ==="
+        echo "=== Start Output ==="
+        "$@" 2>&1
+        local exit_code=$?
+        echo "=== End Output ==="
+        echo "=== Exit Code: $exit_code ==="
+        return $exit_code
+    }
+    
+    # Function to create structured output for AI
+    ai-cmd() {
+        if [ $# -eq 0 ]; then
+            echo "Usage: ai-cmd <command>"
+            echo "Runs a command with structured output for AI assistants"
+            return 1
+        fi
+        
+        local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+        echo "📊 AI Command Report [$timestamp]"
+        echo "🔧 Command: $*"
+        echo "📁 Directory: $(pwd)"
+        echo "💻 Shell: $SHELL ($ZSH_VERSION)"
+        echo "🖥️  Terminal: $TERM_PROGRAM"
+        echo ""
+        echo "📋 Output:"
+        echo "---"
+        "$@" 2>&1
+        local exit_code=$?
+        echo "---"
+        echo "✅ Exit Code: $exit_code"
+        echo "⏰ Completed: $(date '+%Y-%m-%d %H:%M:%S')"
+        echo ""
+        return $exit_code
+    }
+    
+    # Function to get system context for AI
+    ai-context() {
+        echo "🤖 System Context for AI Assistants:"
+        echo "📍 Current Directory: $(pwd)"
+        echo "👤 User: $(whoami)"
+        echo "🖥️  Host: $(hostname)"
+        echo "🐚 Shell: $SHELL ($ZSH_VERSION)"
+        echo "💻 OS: $(uname -s) $(uname -r)"
+        echo "📱 Terminal: $TERM_PROGRAM $TERM_PROGRAM_VERSION"
+        echo "🎨 Theme: $ZSH_THEME"
+        echo ""
+        echo "🔧 Available Tools:"
+        command -v git &> /dev/null && echo "   ✅ git ($(git --version | head -1))"
+        command -v node &> /dev/null && echo "   ✅ node ($(node --version))"
+        command -v npm &> /dev/null && echo "   ✅ npm ($(npm --version))"
+        command -v yarn &> /dev/null && echo "   ✅ yarn ($(yarn --version))"
+        command -v pnpm &> /dev/null && echo "   ✅ pnpm ($(pnpm --version))"
+        command -v python3 &> /dev/null && echo "   ✅ python3 ($(python3 --version))"
+        command -v docker &> /dev/null && echo "   ✅ docker ($(docker --version | head -1))"
+        command -v kubectl &> /dev/null && echo "   ✅ kubectl ($(kubectl version --client --short 2>/dev/null || echo 'installed'))"
+        echo ""
+        echo "📂 Current Directory Contents:"
+        ls -la | head -10
+        if [ $(ls -1 | wc -l) -gt 10 ]; then
+            echo "   ... and $(($(ls -1 | wc -l) - 10)) more items"
+        fi
+        echo ""
     }
 fi
