@@ -1,11 +1,14 @@
-# Claude AI Assistant Context
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 This document provides context for Claude AI when working with this dotfiles repository.
 
 ## Quick Start Commands
 
-- **Install dotfiles**: `./install.sh`
-- **Non-interactive install**: `./non-interactive-install.sh`
+- **Install dotfiles**: `./install.sh` (interactive with prompts)
+- **Non-interactive install**: `./non-interactive-install.sh` (simple symlink setup)
+- **Health check**: `./health-check.sh` (validate installation and report issues)
 - **Test shell config**: `zsh -c "source ~/.zshrc && echo 'Config loaded successfully'"`
 
 ## Common Tasks
@@ -25,6 +28,11 @@ This document provides context for Claude AI when working with this dotfiles rep
 ### Installing a new Oh-My-Zsh plugin
 1. Add plugin name to the plugins array in `common/zsh-normal-config`
 2. If it's a third-party plugin, add as git submodule in `zsh/oh-my-zsh/plugins/`
+
+### Adding machine-specific configuration
+1. Create file in `local/` directory (e.g., `local/machine-specific.sh`)
+2. Add logic to `local/master-config.sh` to source your new file
+3. The `local/` directory is gitignored for security
 
 ## AI Agent Mode
 
@@ -49,6 +57,24 @@ When running in Windsurf, additional optimizations are applied:
 - Optimized history settings for better AI context
 - Windsurf CLI path integration (if available)
 - Helper functions: `windsurf-here` and `windsurf-check`
+
+## Architecture Overview
+
+This dotfiles system uses a **dual-configuration architecture** that automatically adapts between normal interactive mode and AI agent mode:
+
+### Configuration Loading Order
+1. **Environment Detection**: Checks for AI agent environment variables
+2. **Master Config**: Loads `local/master-config.sh` for machine-specific setup
+3. **Path Setup**: Sources `common/paths` for PATH configurations
+4. **Mode Selection**: Loads either `common/zsh-agent-config` or `common/zsh-normal-config`
+5. **Common Components**: Sources aliases, functions, and integrations
+6. **AI Optimizations**: Applies GitHub Copilot and other AI tool integrations
+
+### Key Components
+- **Entry Point**: `zsh/zshrc` - main configuration with intelligent mode detection
+- **AI Integration**: `common/copilot-integration.zsh` - GitHub Copilot CLI features
+- **Performance**: `common/shell-performance.sh` - shell optimization settings
+- **Health Validation**: `health-check.sh` - comprehensive system validation
 
 ## File Structure Overview
 
@@ -101,6 +127,14 @@ To check Windsurf optimization status:
 windsurf-check
 ```
 
+## Important Development Notes
+
+1. **GVM Removed**: Go Version Manager has been completely removed due to compatibility issues. Use system Go or other version managers if needed.
+2. **Machine-specific configurations**: Must go in `local/` directory (gitignored for security)
+3. **Test changes**: Always test in both normal and agent modes before committing
+4. **PATH preservation**: Many tools depend on specific PATH entries - handle with care
+5. **Agent detection**: Automatic based on environment variables, no manual setup needed
+
 ## Version Control
 
 When making changes:
@@ -108,3 +142,9 @@ When making changes:
 2. Verify both normal and agent modes work
 3. Commit with descriptive message
 4. Don't commit `local/` directory contents
+
+## Troubleshooting
+
+- **Shell errors after changes**: Run `./health-check.sh` to validate configuration
+- **Agent mode not detected**: Check environment variables listed in AI Agent Mode section
+- **Permission issues**: Run `ZSH_DISABLE_COMPFIX=true zsh` to bypass directory warnings

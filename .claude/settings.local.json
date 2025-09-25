@@ -5,7 +5,16 @@
       "Bash(test:*)",
       "Bash(git submodule:*)",
       "Bash(source:*)",
-      "Bash(z:*)"
+      "Bash(z:*)",
+      "Read(//Users/decebaldobrica/.gvm/scripts/**)",
+      "Bash(functions)",
+      "Bash(echo:*)",
+      "Bash(exec zsh)",
+      "Bash(unset:*)",
+      "Bash(typeset:*)",
+      "Bash(bash:*)",
+      "Read(//private/tmp/**)",
+      "Read(//Users/decebaldobrica/.gvm/**)"
     ],
     "deny": [],
     "ask": []

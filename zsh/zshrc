@@ -104,10 +104,11 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 export PATH="$PATH:/Users/decebaldobrica/.cyfrin/bin"
 
-# Only load GVM in normal mode (not in AI agent mode) to avoid compatibility issues
-if [[ -z "$AI_AGENT_CONTEXT" ]]; then
-    [[ -s "/Users/decebaldobrica/.gvm/scripts/gvm" ]] && source "/Users/decebaldobrica/.gvm/scripts/gvm"
-fi
+# GVM completely removed from system due to compatibility issues
+# Override any broken cd function with clean builtin version and protect from redefinition
+cd() { builtin cd "$@"; }
+chpwd() { :; } # Empty chpwd function to prevent errors
+readonly -f cd chpwd 2>/dev/null
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/decebaldobrica/.rd/bin:$PATH"
