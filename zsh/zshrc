@@ -121,7 +121,8 @@ export PATH="$BUM_INSTALL/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-. "/usr/local/env"
+# Deno environment (only if deno is installed)
+[ -f "/usr/local/env" ] && . "/usr/local/env"
 # Initialize zsh completions (added by deno install script)
 autoload -Uz compinit
 compinit
