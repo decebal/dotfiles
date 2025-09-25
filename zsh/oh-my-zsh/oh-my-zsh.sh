@@ -48,9 +48,12 @@ fi
 # Save the location of the current completion dump file.
 ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 
-# Load and run compinit
-autoload -U compinit
-compinit -i -d "${ZSH_COMPDUMP}"
+# Load and run compinit (only if not already loaded)
+if [[ -z "$_COMPINIT_LOADED" ]]; then
+  autoload -U compinit
+  compinit -u -d "${ZSH_COMPDUMP}"
+  export _COMPINIT_LOADED=1
+fi
 
 # Load all of the plugins that were defined in ~/.zshrc
 for plugin ($plugins); do

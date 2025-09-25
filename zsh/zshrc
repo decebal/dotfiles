@@ -1,5 +1,7 @@
-# Add deno completions to search path
-if [[ ":$FPATH:" != *":/Users/decebaldobrica/.zsh/completions:"* ]]; then export FPATH="/Users/decebaldobrica/.zsh/completions:$FPATH"; fi
+# Add deno completions to search path (only if directory exists)
+if [[ -d "/Users/decebaldobrica/.zsh/completions" ]] && [[ ":$FPATH:" != *":/Users/decebaldobrica/.zsh/completions:"* ]]; then 
+    export FPATH="/Users/decebaldobrica/.zsh/completions:$FPATH"
+fi
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 #!/bin/zsh
@@ -7,6 +9,10 @@ if [[ ":$FPATH:" != *":/Users/decebaldobrica/.zsh/completions:"* ]]; then export
 
 DOTFILES=$HOME/.dotfiles
 ZSH=$DOTFILES/zsh/oh-my-zsh
+
+# Disable zsh compinit security checks to prevent insecure directory warnings
+# This is safe for personal dotfiles used across multiple machines
+export ZSH_DISABLE_COMPFIX="true"
 
 # Load master config first if it exists
 if [ -f $DOTFILES/local/master-config.sh ]; then
@@ -123,16 +129,13 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # Deno environment (only if deno is installed)
 [ -f "/usr/local/env" ] && . "/usr/local/env"
-# Initialize zsh completions with security handling
+# Initialize zsh completions with security handling (only if not already done)
 # This prevents errors on different machines with different permissions
-autoload -Uz compinit
-# Use -u flag to ignore insecure directories, or run securely if possible
-if [[ $ZSH_DISABLE_COMPFIX == "true" ]] || [[ $EUID == 0 ]]; then
-  # Skip security checks if disabled or running as root
+if [[ -z "$_COMPINIT_LOADED" ]]; then
+  autoload -Uz compinit
+  # Always use -u flag to ignore insecure directories on shared machines
   compinit -u
-else
-  # Try secure compinit first, fallback to insecure if needed
-  compinit 2>/dev/null || compinit -u
+  export _COMPINIT_LOADED=1
 fi
 
 # The next line updates PATH for the Google Cloud SDK.

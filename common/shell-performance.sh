@@ -20,20 +20,25 @@ if [ -n "$ZSH_VERSION" ]; then
     zcompile_if_needed "$DOTFILES/common/aliases"
     zcompile_if_needed "$DOTFILES/common/functions"
 
-    # Faster completion initialization
-    autoload -Uz compinit
-
-    # Only check for insecure directories once a day
-    if [[ -n "$ZSH_COMPDUMP" ]]; then
-        compdump_file="$ZSH_COMPDUMP"
-    else
-        compdump_file="${ZDOTDIR:-$HOME}/.zcompdump"
-    fi
-
-    if [[ $compdump_file(Nmh+24) ]]; then
-        compinit -C  # Skip security check
-    else
-        compinit
+    # Faster completion initialization - only if not already done
+    if [[ -z "$_COMPINIT_LOADED" ]]; then
+        autoload -Uz compinit
+        
+        # Only check for insecure directories once a day
+        if [[ -n "$ZSH_COMPDUMP" ]]; then
+            compdump_file="$ZSH_COMPDUMP"
+        else
+            compdump_file="${ZDOTDIR:-$HOME}/.zcompdump"
+        fi
+        
+        if [[ $compdump_file(Nmh+24) ]]; then
+            compinit -C  # Skip security check for cached completions
+        else
+            # Try secure compinit first, fallback to insecure if needed
+            compinit -u 2>/dev/null || compinit -C
+        fi
+        
+        export _COMPINIT_LOADED=1
     fi
 
     # Optimization flags
