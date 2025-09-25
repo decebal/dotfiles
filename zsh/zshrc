@@ -104,7 +104,10 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 export PATH="$PATH:/Users/decebaldobrica/.cyfrin/bin"
 
-[[ -s "/Users/decebaldobrica/.gvm/scripts/gvm" ]] && source "/Users/decebaldobrica/.gvm/scripts/gvm"
+# Only load GVM in normal mode (not in AI agent mode) to avoid compatibility issues
+if [[ -z "$AI_AGENT_CONTEXT" ]]; then
+    [[ -s "/Users/decebaldobrica/.gvm/scripts/gvm" ]] && source "/Users/decebaldobrica/.gvm/scripts/gvm"
+fi
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/decebaldobrica/.rd/bin:$PATH"
