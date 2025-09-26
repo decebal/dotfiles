@@ -27,6 +27,15 @@ fi
 # Temporarily disable oh-my-posh to use powerline theme
 export DISABLE_OH_MY_POSH=1
 
+# Initialize zsh completions BEFORE loading Oh My Zsh to prevent compdef errors
+# This must happen before any plugins try to use compdef
+if [[ -z "$_COMPINIT_LOADED" ]]; then
+  autoload -Uz compinit
+  # Always use -u flag to ignore insecure directories on shared machines
+  compinit -u
+  export _COMPINIT_LOADED=1
+fi
+
 # Detect AI Agent context and load appropriate configuration
 # Supports multiple AI environments: Cursor, GitHub Copilot, Windsurf, VS Code, etc.
 if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]] || [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]] || [[ "$TERM_PROGRAM" == "vscode" ]] || [[ -n "$VSCODE_INJECTION" ]]; then
@@ -37,7 +46,7 @@ if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AG
     fi
 else
     # Load full-featured normal configuration
-    zsh_theme="powerline"
+    zsh_theme="robbyrussell"  # Changed from powerline to robbyrussell
     if [ -f $DOTFILES/common/zsh-normal-config ]; then
         . $DOTFILES/common/zsh-normal-config
     else
@@ -108,7 +117,8 @@ export PATH="$PATH:/Users/decebaldobrica/.cyfrin/bin"
 # Override any broken cd function with clean builtin version and protect from redefinition
 cd() { builtin cd "$@"; }
 chpwd() { :; } # Empty chpwd function to prevent errors
-readonly -f cd chpwd 2>/dev/null
+# Mark functions readonly without printing their definitions
+typeset -rf cd chpwd >/dev/null 2>&1
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/decebaldobrica/.rd/bin:$PATH"
@@ -133,14 +143,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # Deno environment (only if deno is installed)
 [ -f "/usr/local/env" ] && . "/usr/local/env"
-# Initialize zsh completions with security handling (only if not already done)
-# This prevents errors on different machines with different permissions
-if [[ -z "$_COMPINIT_LOADED" ]]; then
-  autoload -Uz compinit
-  # Always use -u flag to ignore insecure directories on shared machines
-  compinit -u
-  export _COMPINIT_LOADED=1
-fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'; fi
