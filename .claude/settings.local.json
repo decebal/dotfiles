@@ -18,7 +18,8 @@
       "Bash(env)",
       "Bash(zsh:*)",
       "Read(//Users/decebaldobrica/**)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(oh-my-posh:*)"
     ],
     "deny": [],
     "ask": []

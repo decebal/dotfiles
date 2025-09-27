@@ -16,9 +16,6 @@
 [submodule "common/colors"]
 	path = common/colors
 	url = https://github.com/coolwanglu/guake-colors-solarized.git
-[submodule "zsh/oh-my-zsh/plugins/zsh-syntax-highlighting"]
-	path = zsh/oh-my-zsh/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule "vim/vim-sources/bundle/vim-fugitive"]
 	path = vim/vim-sources/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
@@ -52,9 +49,3 @@
 [submodule "vim/vim-sources/bundle/vim-airline-themes"]
 	path = vim/vim-sources/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule "zsh/oh-my-zsh/plugins/zsh-autosuggestions"]
-	path = zsh/oh-my-zsh/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "zsh/oh-my-zsh/plugins/navi"]
-	path = zsh/oh-my-zsh/plugins/navi
-	url = https://github.com/denisidoro/navi.git

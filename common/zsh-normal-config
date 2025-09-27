@@ -1,8 +1,6 @@
 #!/bin/zsh
 # ZSH Configuration for Normal Interactive Mode
-# Full-featured configuration with all bells and whistles
-
-ZSH=$DOTFILES/zsh/oh-my-zsh
+# Oh-My-Posh focused configuration with essential shell features
 
 # Load local setup if exists
 if [ -f $DOTFILES/local/zsh-setup ]; then
@@ -14,31 +12,6 @@ if [ "$is_server" = true ]; then
     eval $(ssh-agent)
     /usr/bin/ssh-add
 fi
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-
-# Auto-update settings
-DISABLE_UPDATE_PROMPT=true
-DISABLE_AUTO_UPDATE=false
-
-# Theme configuration
-# Note: When oh-my-posh is active, we skip oh-my-zsh themes
-if command -v oh-my-posh &> /dev/null && [ -z "$DISABLE_OH_MY_POSH" ]; then
-    # Oh-my-posh handles the prompt, skip oh-my-zsh theme
-    ZSH_THEME=""
-    export USE_OH_MY_POSH=1
-else
-    # Use oh-my-zsh themes
-    if [ -z "$zsh_theme" ]; then
-        ZSH_THEME="robbyrussell"  # Default to simple, fast theme
-    elif [ "$zsh_theme" = 'powerline' ]; then
-        # Powerline configuration for oh-my-zsh
-        if [ -f $DOTFILES/common/powerline-zsh-config ]; then
-            . $DOTFILES/common/powerline-zsh-config
-        fi
-    else
-        ZSH_THEME="$zsh_theme"
-    fi
-fi
 
 export LS_OPTIONS='--color=auto'
 COMPLETION_WAITING_DOTS="true"
@@ -48,71 +21,62 @@ if [ -f $DOTFILES/local/zsh-config ]; then
 	. $DOTFILES/local/zsh-config
 fi
 
-# Optimized plugin set for interactive use
-# Core plugins - always loaded
-plugins=(
-    git                      # Git aliases and functions
-    ssh-agent               # SSH key management
-    history                 # Better history management
-    history-substring-search # Search history with arrow keys
-    last-working-dir        # Remember last working directory
-)
+# Essential zsh options for interactive use
+setopt AUTO_CD              # Change directory just by typing its name
+setopt INTERACTIVE_COMMENTS # Allow comments in interactive mode
+setopt HIST_VERIFY         # Show command with history expansion to user before running it
+setopt SHARE_HISTORY       # Share command history data
+setopt HIST_IGNORE_SPACE   # Don't record commands that start with space
+setopt HIST_IGNORE_DUPS    # Don't record duplicates in history
+setopt COMPLETE_IN_WORD    # Complete from both ends of a word
+setopt ALWAYS_TO_END       # Move cursor to the end of a completed word
+setopt PATH_DIRS           # Perform path search even on command names with slashes
+setopt AUTO_MENU           # Automatically use menu completion
+setopt AUTO_LIST           # Automatically list choices on ambiguous completion
+setopt AUTO_PARAM_SLASH    # If completed parameter is a directory, add a trailing slash
 
-# Performance-optimized plugins
-plugins+=(
-    gitfast                 # Faster git completions (replaces git plugin completions)
-    zsh-syntax-highlighting # Syntax highlighting (load early for better performance)
-    zsh-autosuggestions    # Fish-like autosuggestions
-)
+# History settings
+HISTSIZE=50000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
 
-# Development tools (conditionally loaded)
-command -v python3 &>/dev/null && plugins+=(pip python)
-command -v go &>/dev/null && plugins+=(golang)
-command -v rvm &>/dev/null && plugins+=(rvm)
-command -v navi &>/dev/null && plugins+=(navi)
-command -v brew &>/dev/null && plugins+=(brew)          # Homebrew shortcuts
-command -v docker &>/dev/null && plugins+=(docker)      # Docker completions
-command -v npm &>/dev/null && plugins+=(npm)            # npm completions
-# VS Code plugin doesn't exist in this oh-my-zsh version
+# Enhanced completions
+autoload -U compinit
+compinit
 
-# System-specific plugins
-[[ "$OSTYPE" == "linux-gnu"* ]] && [[ -f /etc/debian_version ]] && plugins+=(debian)
-[[ "$OSTYPE" == "darwin"* ]] && plugins+=(macos)
-
-# Utility plugins
-plugins+=(
-    dircycle               # Cycle through directory stack with Ctrl+Shift+Left/Right
-    wd                     # Warp directories
-    colorize               # Syntax highlighting for cat
-    autoenv                # Auto-source .env files
-    z                      # Jump to frequently used directories
-    extract                # Extract any archive with 'extract <file>'
-    copyfile               # Copy file contents to clipboard: copyfile <file>
-    copypath               # Copy current path to clipboard: copypath
-    web-search             # Search from terminal: google "search term"
-    sudo                   # Press ESC twice to add sudo to current command
-    command-not-found      # Suggest packages when command not found
-    common-aliases         # Useful common aliases
-)
-
-# Advanced plugins (can be performance intensive)
-if [ "${ENABLE_ADVANCED_PLUGINS:-true}" = "true" ]; then
-    plugins+=(
-        per-directory-history  # Separate history per directory
-    )
-fi
-
-# Optional fun plugins (can be disabled for performance)
-if [ "${ENABLE_FUN_PLUGINS:-false}" = "true" ]; then
-    plugins+=(emoji-clock)
-fi
+# Git completions
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git*' formats " %b"
+precmd() {
+    vcs_info
+}
 
 # Add completions
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
-# Load Oh My Zsh
-if [ -f $ZSH/oh-my-zsh.sh ]; then
-    source $ZSH/oh-my-zsh.sh
+# Enhanced history search with arrow keys
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search   # Up arrow
+bindkey "^[[B" down-line-or-beginning-search # Down arrow
+
+# Better directory navigation
+setopt AUTO_PUSHD        # Push directories onto stack automatically
+setopt PUSHD_IGNORE_DUPS # Don't duplicate directories in stack
+setopt PUSHD_SILENT      # Don't print directory stack after pushd/popd
+
+
+# Load useful zsh plugins
+if [ -f $DOTFILES/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source $DOTFILES/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+if [ -f $DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source $DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 fi
 
 # k git-zsh list directory plugin

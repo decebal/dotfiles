@@ -1,20 +1,15 @@
-# Add deno completions to search path (only if directory exists)
-if [[ -d "/Users/decebaldobrica/.zsh/completions" ]] && [[ ":$FPATH:" != *":/Users/decebaldobrica/.zsh/completions:"* ]]; then 
-    export FPATH="/Users/decebaldobrica/.zsh/completions:$FPATH"
-fi
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 #!/bin/zsh
-#Path to your oh-my-zsh configuration.
+# ZSH Configuration - Oh My Posh Only
+# This configuration uses Oh My Posh for theming and prompt
 
-DOTFILES=$HOME/.dotfiles
-ZSH=$DOTFILES/zsh/oh-my-zsh
+export DOTFILES=$HOME/.dotfiles
 
-# Disable zsh compinit security checks to prevent insecure directory warnings
-# This is safe for personal dotfiles used across multiple machines
-export ZSH_DISABLE_COMPFIX="true"
+# Set up environment detection for AI agents
+if [[ -n "$CURSOR_AGENT" || -n "$GITHUB_COPILOT_AGENT" || -n "$AI_AGENT" || -n "$WINDSURF_PID" || -n "$VSCODE_PID" ]]; then
+    export AI_AGENT_CONTEXT=1
+fi
 
-# Load master config first if it exists
+# Load local configuration first
 if [ -f $DOTFILES/local/master-config.sh ]; then
 	. $DOTFILES/local/master-config.sh
 fi
@@ -24,57 +19,43 @@ if [ -f $DOTFILES/common/paths ]; then
 	. $DOTFILES/common/paths
 fi
 
-# Temporarily disable oh-my-posh to use powerline theme
-export DISABLE_OH_MY_POSH=1
-
-# Initialize zsh completions BEFORE loading Oh My Zsh to prevent compdef errors
-# This must happen before any plugins try to use compdef
+# Initialize zsh completions
 autoload -Uz compinit
 autoload -U +X bashcompinit
 
-# Force compinit to run now to make compdef available for plugins
-# Use -C for speed (skip security check) since we set ZSH_DISABLE_COMPFIX=true
-compinit -C
+# Force compinit to run now to make compdef available
+if [[ $ZSH_DISABLE_COMPFIX != true ]]; then
+    compinit
+else
+    compinit -u
+fi
 bashcompinit
 
-# Mark as loaded so other scripts don't try to reinitialize
-export _COMPINIT_LOADED=1
-
-# Detect AI Agent context and load appropriate configuration
-# Supports multiple AI environments: Cursor, GitHub Copilot, Windsurf, VS Code, etc.
-if [[ -n "$CURSOR_AGENT" ]] || [[ -n "$GITHUB_COPILOT_AGENT" ]] || [[ -n "$AI_AGENT" ]] || [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]] || [[ "$TERM_PROGRAM" == "vscode" ]] || [[ -n "$VSCODE_INJECTION" ]]; then
-    # Load minimal agent-optimized configuration
-    export AI_AGENT_CONTEXT=1
+# Load configuration based on context
+if [[ -n "$AI_AGENT_CONTEXT" ]]; then
+    # Minimal configuration for AI agents
     if [ -f $DOTFILES/common/zsh-agent-config ]; then
         . $DOTFILES/common/zsh-agent-config
     fi
 else
-    # Load full-featured normal configuration
-    zsh_theme="robbyrussell"  # Changed from powerline to robbyrussell
+    # Full configuration for interactive use
     if [ -f $DOTFILES/common/zsh-normal-config ]; then
         . $DOTFILES/common/zsh-normal-config
-    else
-        # Fallback to original config if new one doesn't exist
-        if [ -f $DOTFILES/common/zsh-config ]; then
-            . $DOTFILES/common/zsh-config
-        fi
     fi
 fi
 
-# Alias definitions.
+# Load common aliases and functions
 if [ -f $DOTFILES/common/aliases ]; then
-. $DOTFILES/common/aliases
+    . $DOTFILES/common/aliases
 fi
 
 if [ -f $DOTFILES/common/functions ]; then
     . $DOTFILES/common/functions
 fi
 
-
 umask 0002
 export TERM="xterm-256color"
 
-export PATH="$HOME/.yarn/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -82,75 +63,25 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Load prompt theme (oh-my-posh or oh-my-zsh) - resolves conflicts automatically
-# This should be loaded AFTER oh-my-zsh to properly override themes
+# Setup Oh My Posh with Material theme
+if command -v oh-my-posh &>/dev/null && [ -f ~/.poshthemes/material.omp.json ]; then
+    eval "$(oh-my-posh init zsh --config ~/.poshthemes/material.omp.json)"
+fi
+
+# Load performance optimizations (only in non-agent mode)
 if [[ -z "$AI_AGENT_CONTEXT" ]]; then
-    # Source performance optimizations
     if [ -f $DOTFILES/common/shell-performance.sh ]; then
         . $DOTFILES/common/shell-performance.sh
     fi
-
-    # Setup the prompt theme (handles oh-my-posh vs oh-my-zsh conflict)
-    if command -v oh-my-posh &>/dev/null && [ -z "$DISABLE_OH_MY_POSH" ] && [ -f ~/.poshthemes/material.omp.json ]; then
-        # Oh-my-posh takes precedence when available
-        eval "$(oh-my-posh init zsh --config ~/.poshthemes/material.omp.json)"
-    fi
-    # Note: If oh-my-posh is not used, oh-my-zsh theme from zsh-normal-config will be active
 fi
 
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
-# pnpm
-export PNPM_HOME="/Users/decebaldobrica/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# bashcompinit already loaded at the beginning of the file
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-export PATH="$PATH:/Users/decebaldobrica/.cyfrin/bin"
-
-# GVM completely removed from system due to compatibility issues
-# Override any broken cd function with clean builtin version and protect from redefinition
-cd() { builtin cd "$@"; }
-chpwd() { :; } # Empty chpwd function to prevent errors
-# Mark functions readonly without printing their definitions
-typeset -rf cd chpwd >/dev/null 2>&1
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/decebaldobrica/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
-# Added by Windsurf
-export PATH="/Users/decebaldobrica/.codeium/windsurf/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# Only initialize pyenv if it's installed
-command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init - zsh)"
-
-# bum
-export BUM_INSTALL="$HOME/.bum"
-export PATH="$BUM_INSTALL/bin:$PATH"
-
-# bun completions
-[ -s "/Users/decebaldobrica/.bun/_bun" ] && source "/Users/decebaldobrica/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-# Deno environment (only if deno is installed)
-[ -f "/usr/local/env" ] && . "/usr/local/env"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc' ]; then . '/opt/homebrew/share/google-cloud-sdk/completion.zsh.inc'; fi
-
+# Load local additional settings if they exist
+if [ -f $DOTFILES/local/zsh-additional ]; then
+	. $DOTFILES/local/zsh-additional
+fi
