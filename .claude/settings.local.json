@@ -14,7 +14,11 @@
       "Bash(typeset:*)",
       "Bash(bash:*)",
       "Read(//private/tmp/**)",
-      "Read(//Users/decebaldobrica/.gvm/**)"
+      "Read(//Users/decebaldobrica/.gvm/**)",
+      "Bash(env)",
+      "Bash(zsh:*)",
+      "Read(//Users/decebaldobrica/**)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

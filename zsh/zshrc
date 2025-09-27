@@ -29,12 +29,16 @@ export DISABLE_OH_MY_POSH=1
 
 # Initialize zsh completions BEFORE loading Oh My Zsh to prevent compdef errors
 # This must happen before any plugins try to use compdef
-if [[ -z "$_COMPINIT_LOADED" ]]; then
-  autoload -Uz compinit
-  # Always use -u flag to ignore insecure directories on shared machines
-  compinit -u
-  export _COMPINIT_LOADED=1
-fi
+autoload -Uz compinit
+autoload -U +X bashcompinit
+
+# Force compinit to run now to make compdef available for plugins
+# Use -C for speed (skip security check) since we set ZSH_DISABLE_COMPFIX=true
+compinit -C
+bashcompinit
+
+# Mark as loaded so other scripts don't try to reinitialize
+export _COMPINIT_LOADED=1
 
 # Detect AI Agent context and load appropriate configuration
 # Supports multiple AI environments: Cursor, GitHub Copilot, Windsurf, VS Code, etc.
@@ -108,7 +112,7 @@ esac
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 
-autoload -U +X bashcompinit && bashcompinit
+# bashcompinit already loaded at the beginning of the file
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 export PATH="$PATH:/Users/decebaldobrica/.cyfrin/bin"
