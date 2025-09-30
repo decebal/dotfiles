@@ -19,7 +19,8 @@
       "Bash(zsh:*)",
       "Read(//Users/decebaldobrica/**)",
       "Bash(grep:*)",
-      "Bash(oh-my-posh:*)"
+      "Bash(oh-my-posh:*)",
+      "Bash(brew install:*)"
     ],
     "deny": [],
     "ask": []

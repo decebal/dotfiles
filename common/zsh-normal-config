@@ -84,4 +84,34 @@ if [ -f $DOTFILES/zsh/k/k.sh ]; then
     source $DOTFILES/zsh/k/k.sh
 fi
 
+# Initialize zoxide (smart directory jumping)
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+# Initialize fzf (fuzzy finder)
+if command -v fzf &> /dev/null; then
+    # Key bindings (Ctrl+R for history, Ctrl+T for files, Alt+C for cd)
+    source <(fzf --zsh)
+
+    # fzf configuration
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --inline-info"
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+
+    # Use fd for fzf path completion
+    _fzf_compgen_path() {
+        fd --hidden --follow --exclude ".git" . "$1"
+    }
+    _fzf_compgen_dir() {
+        fd --type d --hidden --follow --exclude ".git" . "$1"
+    }
+fi
+
+# Initialize atuin (smart history)
+if command -v atuin &> /dev/null; then
+    eval "$(atuin init zsh)"
+fi
+
 export EDITOR=vim

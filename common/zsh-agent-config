@@ -123,6 +123,22 @@ if [[ -n "$WINDSURF_PID" ]] || [[ -n "$VSCODE_PID" ]] || [[ "$TERM_PROGRAM" == "
     fi
 fi
 
+# Initialize zoxide (smart directory jumping)
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+# Initialize fzf (fuzzy finder) - minimal config for agent mode
+if command -v fzf &> /dev/null; then
+    source <(fzf --zsh)
+    export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+fi
+
+# Initialize atuin (smart history) - if available
+if command -v atuin &> /dev/null; then
+    eval "$(atuin init zsh --disable-up-arrow)"
+fi
+
 # Simplified prompt for agent mode
 PROMPT='%n@%m:%~$ '
 
