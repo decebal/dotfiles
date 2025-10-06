@@ -1,5 +1,65 @@
-vim/vim-sources/\.netrwhist
+# Vim
+vim/vim-sources/.netrwhist
+*.swp
+*.swo
+*~
+
+# IDE
 .idea
 .idea/*
+.vscode/
+*.code-workspace
+
+# Machine-specific configurations
 local/*
-zsh/.poshthemes/dez.omp.json.bak
+
+# Oh-My-Posh backups
+zsh/.poshthemes/*.bak
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Shell history files (security)
+.zsh_history
+.bash_history
+
+# Temporary files
+*.tmp
+*.log
+.cache/
+
+# SSH and secrets (extra protection)
+*.pem
+*.key
+*_rsa
+*_dsa
+*.ppk
+.env
+.env.local
+.env.*.local
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Compiled Python files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Node modules (if any)
+node_modules/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini

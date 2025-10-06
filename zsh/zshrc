@@ -63,9 +63,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Setup Oh My Posh with Material theme
-if command -v oh-my-posh &>/dev/null && [ -f ~/.poshthemes/material.omp.json ]; then
-    eval "$(oh-my-posh init zsh --config ~/.poshthemes/material.omp.json)"
+# Initialize Starship prompt
+if command -v starship &>/dev/null; then
+    eval "$(starship init zsh)"
 fi
 
 # Load performance optimizations (only in non-agent mode)
