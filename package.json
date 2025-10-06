@@ -1,0 +1,30 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "A powerful, well-organized dotfiles repository for developers who love productivity",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/decebal/dotfiles.git"
+  },
+  "author": "Decebal Dobrica",
+  "license": "MIT",
+  "scripts": {
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1"
+  },
+  "keywords": [
+    "dotfiles",
+    "zsh",
+    "starship",
+    "shell",
+    "configuration",
+    "terminal",
+    "productivity",
+    "ai-tools"
+  ]
+}

@@ -275,7 +275,31 @@ Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 - **[CLAUDE.md](./CLAUDE.md)** - Guide for Claude AI when working with this repo
 - **[COOL-PLUGINS.md](./COOL-PLUGINS.md)** - Detailed plugin documentation
 - **[SHELL-OPTIMIZATION.md](./SHELL-OPTIMIZATION.md)** - Performance optimization guide
+- **[RELEASES.md](./RELEASES.md)** - Release management and versioning guide
+- **[CHANGELOG.md](./CHANGELOG.md)** - Version history and changes
 - **[TODO.md](./TODO.md)** - Roadmap and future improvements
+
+## 🏷️ Releases & Versioning
+
+This project uses [Changesets](https://github.com/changesets/changesets) for automated version management.
+
+**Latest Release:** [v1.0.0](https://github.com/decebal/dotfiles/releases/latest)
+
+**Creating a release:**
+```bash
+# 1. Make your changes
+# 2. Create a changeset
+bun run changeset
+
+# 3. Commit and push
+git add . && git commit -m "feat: your feature"
+git push
+
+# 4. GitHub Actions will create a Release PR automatically
+# 5. Merge the Release PR to publish
+```
+
+See [RELEASES.md](./RELEASES.md) for detailed release process documentation.
 
 ---
 

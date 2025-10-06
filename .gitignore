@@ -56,8 +56,12 @@ __pycache__/
 *.py[cod]
 *.pyo
 
-# Node modules (if any)
+# Node/Bun modules
 node_modules/
+
+# Package manager lock files
+package-lock.json
+yarn.lock
 
 # OS generated files
 Thumbs.db

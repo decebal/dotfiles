@@ -140,6 +140,34 @@ When adding new features:
 3. **Update documentation** if you've changed functionality
 4. **Follow coding standards** (see below)
 5. **Write clear commit messages**
+6. **Create a changeset** if your changes should be released
+
+### Creating a Changeset
+
+For changes that should be included in a release (bug fixes, new features, breaking changes):
+
+```bash
+# Create a changeset
+bun run changeset
+
+# Follow the prompts:
+# 1. Select version type (patch/minor/major)
+# 2. Write a summary of changes
+# 3. Commit the changeset file
+
+git add .changeset/
+git commit -m "docs: add changeset for feature X"
+```
+
+**When to create a changeset:**
+- ✅ New features (`minor`)
+- ✅ Bug fixes (`patch`)
+- ✅ Breaking changes (`major`)
+- ❌ Documentation only
+- ❌ Code style changes
+- ❌ Internal refactoring (unless it affects users)
+
+See [RELEASES.md](./RELEASES.md) for detailed information.
 
 ### Commit Message Format
 
