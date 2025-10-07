@@ -32,7 +32,6 @@ backup_existing() {
         "$HOME/.vimrc"
         "$HOME/.vim"
         "$HOME/.gitconfig"
-        "$HOME/.oh-my-zsh"
     )
 
     local backup_needed=false
@@ -102,18 +101,14 @@ setup_shells() {
             ;;
         zsh)
             [ -e "$HOME/.zshrc" ] && rm -f "$HOME/.zshrc"
-            [ -e "$HOME/.oh-my-zsh" ] && rm -rf "$HOME/.oh-my-zsh"
             ln -sf "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
-            ln -sf "$DOTFILES/zsh/oh-my-zsh" "$HOME/.oh-my-zsh"
             log "Zsh configuration linked"
             ;;
         both)
             [ -e "$HOME/.bashrc" ] && rm -f "$HOME/.bashrc"
             [ -e "$HOME/.zshrc" ] && rm -f "$HOME/.zshrc"
-            [ -e "$HOME/.oh-my-zsh" ] && rm -rf "$HOME/.oh-my-zsh"
             ln -sf "$DOTFILES/bash/bashrc" "$HOME/.bashrc"
             ln -sf "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
-            ln -sf "$DOTFILES/zsh/oh-my-zsh" "$HOME/.oh-my-zsh"
             log "Both Bash and Zsh configurations linked"
             ;;
         *)

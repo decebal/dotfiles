@@ -2,7 +2,6 @@
 DOTFILES=$HOME/.dotfiles
 
 ln -sf $DOTFILES/zsh/zshrc $HOME/.zshrc
-ln -sf $DOTFILES/zsh/oh-my-zsh/ $HOME/.oh-my-zsh
 
 #vim install
 mv $HOME/.vim $HOME/.vim_old 2>/dev/null
