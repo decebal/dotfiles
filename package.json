@@ -1,6 +1,6 @@
 {
   "name": "dotfiles",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A powerful, well-organized dotfiles repository for developers who love productivity",
   "private": true,
   "repository": {
