@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.0
+
+### Major Changes
+
+- e0027ef: Modern dotfiles with Starship, Bun, and native Zsh
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -8,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - Starship prompt integration for fast, beautiful prompts
 - zsh-autosuggestions plugin for fish-like suggestions (as git submodule)
 - zsh-syntax-highlighting plugin for real-time command validation (as git submodule)
@@ -26,6 +33,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Modern TODO.md with relevant roadmap items
 
 ### Changed
+
 - **BREAKING**: Migrated from npm to Bun for package management
 - **BREAKING**: Removed Oh-My-Zsh framework entirely (using native Zsh + direct plugin loading)
 - **BREAKING**: Removed Oh-My-Posh prompt (replaced with Starship)
@@ -41,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated .claude/settings.local.json permissions for Starship
 
 ### Removed
+
 - Oh-My-Zsh framework and all references
 - Oh-My-Posh theme files (.poshthemes directory)
 - Oh-My-Posh configuration (jandedobbeleer.omp.json)
@@ -51,6 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ~700 lines of unused/outdated code and documentation
 
 ### Fixed
+
 - Improved dual-mode configuration detection for AI agents
 - zsh-syntax-highlighting now properly tracked as git submodule
 - Cleaned up all broken and orphaned git submodules
@@ -64,6 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 This is the first public release of the dotfiles repository.
 
 #### Features
+
 - 🎨 Dual-mode shell configuration (interactive + AI agent modes)
 - 🤖 Automatic AI agent detection (Cursor, Copilot, Windsurf, VS Code)
 - 🚀 Zsh configuration with extensive plugin support
@@ -73,6 +84,7 @@ This is the first public release of the dotfiles repository.
 - 📚 Comprehensive documentation
 
 #### Included Tools
+
 - zsh-syntax-highlighting
 - zoxide for smart directory jumping
 - fzf for fuzzy finding
@@ -81,6 +93,7 @@ This is the first public release of the dotfiles repository.
 - GitHub Copilot CLI integration
 
 #### Configuration
+
 - Smart navigation with z, fzf, atuin
 - Auto-suggestions from command history
 - Syntax highlighting for valid/invalid commands
