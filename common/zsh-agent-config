@@ -2,8 +2,6 @@
 # ZSH Configuration for AI Agent Mode (Cursor, GitHub Copilot, etc.)
 # Optimized for compatibility and minimal interference with AI tools
 
-ZSH=$DOTFILES/zsh/oh-my-zsh
-
 # Load local setup if exists
 if [ -f $DOTFILES/local/zsh-setup ]; then
 	. $DOTFILES/local/zsh-setup
@@ -14,17 +12,8 @@ if [ "$is_server" = true ]; then
     eval $(ssh-agent)
     /usr/bin/ssh-add
 fi
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-
-# Disable auto-updates in agent mode
-DISABLE_UPDATE_PROMPT=true
-DISABLE_AUTO_UPDATE=true
-
-# Use simple theme for better agent compatibility
-ZSH_THEME="robbyrussell"  # Simple, clean theme
 
 export LS_OPTIONS='--color=auto'
-COMPLETION_WAITING_DOTS="false"  # Disable for cleaner output
 
 # GitHub Copilot optimization settings
 export COPILOT_DISABLE_TELEMETRY=true  # Optional: disable telemetry
@@ -35,16 +24,12 @@ if [ -f $DOTFILES/local/zsh-config ]; then
 	. $DOTFILES/local/zsh-config
 fi
 
-# Minimal plugin set for agent mode - only essentials
-plugins=(git gitfast ssh-agent last-working-dir z)
-
 # Add completions
 fpath=($DOTFILES/zsh-completions/src $fpath)
 
-# Load Oh My Zsh
-if [ -f $ZSH/oh-my-zsh.sh ]; then
-    source $ZSH/oh-my-zsh.sh
-fi
+# Enable essential Zsh options for agent mode
+setopt AUTO_CD
+setopt INTERACTIVE_COMMENTS
 
 export EDITOR=vim
 
@@ -214,7 +199,6 @@ if [[ -n "$WINDSURF_CONTEXT" ]] || [[ -n "$VSCODE_CONTEXT" ]]; then
         echo "   WINDSURF_CONTEXT: ${WINDSURF_CONTEXT:-'not set'}"
         echo "   VSCODE_CONTEXT: ${VSCODE_CONTEXT:-'not set'}"
         echo "   GITHUB_COPILOT_TERMINAL: ${GITHUB_COPILOT_TERMINAL:-'not set'}"
-        echo "   Active plugins: ${plugins[@]}"
         
         if command -v windsurf &> /dev/null; then
             echo "   ✅ Windsurf CLI available"
@@ -300,7 +284,6 @@ if [[ -n "$WINDSURF_CONTEXT" ]] || [[ -n "$VSCODE_CONTEXT" ]]; then
         echo "🐚 Shell: $SHELL ($ZSH_VERSION)"
         echo "💻 OS: $(uname -s) $(uname -r)"
         echo "📱 Terminal: $TERM_PROGRAM $TERM_PROGRAM_VERSION"
-        echo "🎨 Theme: $ZSH_THEME"
         echo ""
         echo "🔧 Available Tools:"
         command -v git &> /dev/null && echo "   ✅ git ($(git --version | head -1))"

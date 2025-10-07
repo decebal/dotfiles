@@ -2,24 +2,24 @@
 
 This document explains the shell optimizations implemented in this dotfiles repository.
 
-## Oh-My-Zsh vs Oh-My-Posh Resolution
+## Prompt Configuration
 
-### The Conflict
-- **Oh-My-Zsh**: Provides themes via the `$ZSH_THEME` variable
-- **Oh-My-Posh**: Overrides the entire prompt with its own theming engine
-- **Problem**: Running both simultaneously causes prompt rendering issues and performance problems
+### Modern Prompt with Starship
+The dotfiles now use **Starship** as the default prompt:
 
-### The Solution
-The configuration now intelligently detects and prioritizes prompt systems:
+- **Fast**: Written in Rust, minimal overhead
+- **Cross-shell**: Works with Zsh, Bash, Fish, etc.
+- **Customizable**: Configure via `~/.config/starship.toml`
+- **Modern**: Git integration, execution time, status codes
 
-1. **Oh-My-Posh takes precedence** when installed (better cross-shell support, more modern)
-2. **Oh-My-Zsh themes** are used as fallback when Oh-My-Posh is not available
-3. **AI Agent mode** disables both for maximum compatibility
+### AI Agent Mode
+In AI agent mode (Cursor, Copilot, Windsurf):
+- Starship is disabled for compatibility
+- Simple prompt is used: `%n@%m:%~$ `
+- Optimized for fast loading and AI parsing
 
 ### Control Variables
-- `DISABLE_OH_MY_POSH=1` - Force use of Oh-My-Zsh themes
-- `ZSH_THEME=""` - Disable Oh-My-Zsh theme (automatically set when Oh-My-Posh is active)
-- `AI_AGENT_CONTEXT=1` - Minimal prompt for AI agents
+- `AI_AGENT_CONTEXT=1` - Minimal prompt for AI agents (disables Starship)
 
 ## Plugin Optimization
 
@@ -90,17 +90,19 @@ zprof  # View results
 
 ## Troubleshooting
 
-### Oh-My-Posh not working
+### Starship not working
 ```bash
-# Check if oh-my-posh is installed
-command -v oh-my-posh
+# Check if starship is installed
+command -v starship
 
-# Test oh-my-posh directly
-oh-my-posh init zsh --print
+# Test starship directly
+starship init zsh
 
-# Disable oh-my-posh temporarily
-export DISABLE_OH_MY_POSH=1
-source ~/.zshrc
+# Install starship if needed
+brew install starship
+
+# Test configuration
+starship config
 ```
 
 ### Plugins not loading
@@ -145,9 +147,9 @@ source ~/.zshrc
 4. Document in this file
 
 ### For Themes
-1. Use Oh-My-Posh for modern, cross-shell themes
-2. Fall back to Oh-My-Zsh themes for simplicity
-3. Always test in AI agent mode
+1. Use Starship for modern, fast prompts
+2. Simple prompt in AI agent mode for compatibility
+3. Always test in both modes
 
 ### For Performance
 1. Lazy-load heavy tools (nvm, pyenv, etc.)
@@ -165,14 +167,11 @@ source ~/.zshrc
 ## Quick Commands
 
 ```bash
-# Switch to Oh-My-Zsh theme
-export DISABLE_OH_MY_POSH=1 && source ~/.zshrc
-
-# Switch to Oh-My-Posh
-unset DISABLE_OH_MY_POSH && source ~/.zshrc
-
-# Test AI agent mode
+# Test without Starship (AI agent mode)
 AI_AGENT_CONTEXT=1 zsh
+
+# Normal mode (with Starship)
+zsh
 
 # Enable fun plugins
 export ENABLE_FUN_PLUGINS=true && source ~/.zshrc

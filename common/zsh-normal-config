@@ -1,6 +1,6 @@
 #!/bin/zsh
 # ZSH Configuration for Normal Interactive Mode
-# Oh-My-Posh focused configuration with essential shell features
+# Starship prompt with modern shell features and productivity tools
 
 # Load local setup if exists
 if [ -f $DOTFILES/local/zsh-setup ]; then

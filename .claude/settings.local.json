@@ -19,7 +19,7 @@
       "Bash(zsh:*)",
       "Read(//Users/decebaldobrica/**)",
       "Bash(grep:*)",
-      "Bash(oh-my-posh:*)",
+      "Bash(starship:*)",
       "Bash(brew install:*)"
     ],
     "deny": [],

@@ -50,7 +50,6 @@ check_symlinks() {
         "$HOME/.bashrc:$DOTFILES/bash/bashrc"
         "$HOME/.vimrc:$DOTFILES/vim/vimrc"
         "$HOME/.vim:$DOTFILES/vim/vim-sources"
-        "$HOME/.oh-my-zsh:$DOTFILES/zsh/oh-my-zsh"
     )
 
     for link_pair in "${symlinks[@]}"; do
@@ -237,11 +236,11 @@ check_dev_tools() {
         check_info "Pyenv not installed"
     fi
 
-    # Oh My Posh
-    if command -v oh-my-posh &> /dev/null; then
-        check_pass "Oh My Posh is installed"
+    # Starship
+    if command -v starship &> /dev/null; then
+        check_pass "Starship is installed"
     else
-        check_info "Oh My Posh not installed"
+        check_warn "Starship not installed (recommended prompt)"
     fi
 }
 

@@ -13,9 +13,6 @@ vim/vim-sources/.netrwhist
 # Machine-specific configurations
 local/*
 
-# Oh-My-Posh backups
-zsh/.poshthemes/*.bak
-
 # macOS
 .DS_Store
 .AppleDouble

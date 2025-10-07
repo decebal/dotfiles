@@ -73,7 +73,6 @@ backup_existing() {
         "$HOME/.vimrc"
         "$HOME/.vim"
         "$HOME/.gitconfig"
-        "$HOME/.oh-my-zsh"
     )
 
     local backup_needed=false
@@ -187,10 +186,8 @@ setup_zsh() {
 
     # Remove existing files/links if they exist
     [ -e "$HOME/.zshrc" ] && rm -f "$HOME/.zshrc"
-    [ -e "$HOME/.oh-my-zsh" ] && rm -rf "$HOME/.oh-my-zsh"
 
     ln -sf "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
-    ln -sf "$DOTFILES/zsh/oh-my-zsh" "$HOME/.oh-my-zsh"
 
     # Check if zsh is installed
     if command -v zsh &> /dev/null; then
@@ -279,7 +276,7 @@ install_optional_tools() {
     echo "Would you like to install/check optional development tools?"
     echo "  1) Node Version Manager (nvm)"
     echo "  2) Python Version Manager (pyenv)"
-    echo "  3) Oh My Posh (prompt theme)"
+    echo "  3) Starship (prompt - already configured)"
     echo "  4) GitHub Copilot CLI (AI assistant)"
     echo "  5) All of the above"
     echo "  6) None"
@@ -294,7 +291,7 @@ install_optional_tools() {
             check_pyenv
             ;;
         3)
-            check_oh_my_posh
+            check_starship
             ;;
         4)
             setup_github_copilot
@@ -302,7 +299,7 @@ install_optional_tools() {
         5)
             check_nvm
             check_pyenv
-            check_oh_my_posh
+            check_starship
             setup_github_copilot
             ;;
         6)
@@ -340,15 +337,20 @@ check_pyenv() {
     fi
 }
 
-check_oh_my_posh() {
-    if ! command -v oh-my-posh &> /dev/null; then
-        read -p "Oh My Posh is not installed. Would you like to install it? [y/N]: " install_omp
-        if [[ "$install_omp" =~ ^[Yy]$ ]]; then
-            info "Please install Oh My Posh manually from: https://ohmyposh.dev/docs/installation/linux"
-            info "For macOS: brew install jandedobbeleer/oh-my-posh/oh-my-posh"
+check_starship() {
+    if ! command -v starship &> /dev/null; then
+        read -p "Starship is not installed. Would you like to install it? [y/N]: " install_starship
+        if [[ "$install_starship" =~ ^[Yy]$ ]]; then
+            info "Installing Starship..."
+            if command -v brew &> /dev/null; then
+                brew install starship
+                log "Starship installed successfully ✓"
+            else
+                info "Homebrew not found. Please install Starship manually from: https://starship.rs/guide/#-installation"
+            fi
         fi
     else
-        log "Oh My Posh is already installed ✓"
+        log "Starship is already installed ✓"
     fi
 }
 

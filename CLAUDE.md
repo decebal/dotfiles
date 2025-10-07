@@ -25,9 +25,17 @@ This document provides context for Claude AI when working with this dotfiles rep
 1. Edit `common/paths`
 2. Reload shell: `source ~/.zshrc`
 
-### Installing a new Oh-My-Zsh plugin
-1. Add plugin name to the plugins array in `common/zsh-normal-config`
-2. If it's a third-party plugin, add as git submodule in `zsh/oh-my-zsh/plugins/`
+### Adding a new Zsh plugin
+1. Add as git submodule in `zsh/plugins/`
+   ```bash
+   git submodule add <plugin-url> zsh/plugins/<plugin-name>
+   ```
+2. Source the plugin in `common/zsh-normal-config` or `common/zsh-agent-config`
+   ```bash
+   if [ -f $DOTFILES/zsh/plugins/<plugin-name>/<plugin-name>.zsh ]; then
+       source $DOTFILES/zsh/plugins/<plugin-name>/<plugin-name>.zsh
+   fi
+   ```
 
 ### Adding machine-specific configuration
 1. Create file in `local/` directory (e.g., `local/machine-specific.sh`)
@@ -44,7 +52,7 @@ The shell configuration automatically detects AI agent environments and loads a 
 - `VSCODE_PID` (VS Code/Windsurf)
 
 In agent mode:
-- Simple prompt is used (no powerline/oh-my-posh)
+- Simple prompt is used (no Starship or complex prompts)
 - Minimal plugin set (git, gitfast, ssh-agent, last-working-dir, z)
 - Auto-updates are disabled
 - Complex themes are skipped
@@ -89,7 +97,9 @@ This dotfiles system uses a **dual-configuration architecture** that automatical
 │   └── zsh-config     # Legacy config (fallback)
 ├── zsh/                # Zsh-specific files
 │   ├── zshrc          # Main zsh configuration
-│   └── oh-my-zsh/     # Oh-My-Zsh framework
+│   ├── plugins/       # Zsh plugins (submodules)
+│   ├── zsh-completions/  # Additional completions
+│   └── k/             # k directory listing
 ├── bash/              # Bash configurations
 ├── vim/               # Vim configurations
 ├── git/               # Git configurations

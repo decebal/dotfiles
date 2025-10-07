@@ -115,36 +115,6 @@ if command -v pyenv &>/dev/null && [ -z "$PYENV_LOADED" ]; then
 fi
 
 # ============================================================================
-# Oh-My-Posh vs Oh-My-Zsh Theme Resolution
-# ============================================================================
-
-setup_prompt_theme() {
-    # Detect which prompt system to use
-    if command -v oh-my-posh &>/dev/null && [ -z "$DISABLE_OH_MY_POSH" ]; then
-        # Oh-My-Posh is available and not disabled
-        if [ -n "$ZSH_VERSION" ]; then
-            # Disable oh-my-zsh theme when using oh-my-posh
-            export ZSH_THEME=""
-        fi
-
-        # Load oh-my-posh with performance optimizations
-        if [ -f ~/.poshthemes/material.omp.json ]; then
-            eval "$(oh-my-posh init zsh --config ~/.poshthemes/material.omp.json)"
-        else
-            eval "$(oh-my-posh init zsh)"
-        fi
-
-        export PROMPT_SYSTEM="oh-my-posh"
-    elif [ -n "$ZSH_VERSION" ] && [ -n "$ZSH_THEME" ]; then
-        # Use oh-my-zsh theme
-        export PROMPT_SYSTEM="oh-my-zsh"
-    else
-        # Fallback to basic prompt
-        export PROMPT_SYSTEM="basic"
-    fi
-}
-
-# ============================================================================
 # Performance Monitoring
 # ============================================================================
 
