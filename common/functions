@@ -135,6 +135,42 @@ function switchToLocalContext() {
     kubectl config  use-context  k3s-local-brane 
 }
 
+# Check AI agent detection and tool availability
+ai-status() {
+    echo "AI Terminal Optimization Status:"
+    echo "   AI_AGENT_CONTEXT: ${AI_AGENT_CONTEXT:-'not set'}"
+    echo "   WINDSURF_PID: ${WINDSURF_PID:-'not set'}"
+    echo "   WINDSURF_CONTEXT: ${WINDSURF_CONTEXT:-'not set'}"
+    echo "   VSCODE_PID: ${VSCODE_PID:-'not set'}"
+    echo "   VSCODE_CONTEXT: ${VSCODE_CONTEXT:-'not set'}"
+    echo "   TERM_PROGRAM: ${TERM_PROGRAM:-'not set'}"
+    echo "   GITHUB_COPILOT_TERMINAL: ${GITHUB_COPILOT_TERMINAL:-'not set'}"
+    echo ""
+
+    if command -v gh &> /dev/null; then
+        echo "   [ok] GitHub CLI available"
+        if gh copilot --version &> /dev/null 2>&1; then
+            echo "   [ok] GitHub Copilot CLI extension available"
+        else
+            echo "   [--] GitHub Copilot CLI extension not found"
+        fi
+    else
+        echo "   [--] GitHub CLI not found"
+    fi
+
+    if command -v code &> /dev/null; then
+        echo "   [ok] VS Code CLI available"
+    else
+        echo "   [--] VS Code CLI not found"
+    fi
+
+    if command -v windsurf &> /dev/null; then
+        echo "   [ok] Windsurf CLI available"
+    else
+        echo "   [--] Windsurf CLI not found"
+    fi
+}
+
 if [ -f $DOTFILES/local/functions ]; then
 	. $DOTFILES/local/functions
 fi

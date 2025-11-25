@@ -79,11 +79,6 @@ if [ -f $DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; the
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 fi
 
-# k git-zsh list directory plugin
-if [ -f $DOTFILES/zsh/k/k.sh ]; then
-    source $DOTFILES/zsh/k/k.sh
-fi
-
 # Initialize zoxide (smart directory jumping)
 if command -v zoxide &> /dev/null; then
     eval "$(zoxide init zsh)"

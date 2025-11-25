@@ -85,3 +85,6 @@ fi
 if [ -f $DOTFILES/local/zsh-additional ]; then
 	. $DOTFILES/local/zsh-additional
 fi
+
+# bun completions
+[ -s "/Users/decebaldobrica/.bun/_bun" ] && source "/Users/decebaldobrica/.bun/_bun"

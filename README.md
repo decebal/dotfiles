@@ -64,6 +64,11 @@ A modern, feature-rich dotfiles system with intelligent AI agent detection, beau
 - **Git** (version 2.0+)
 - **Zsh** (version 5.0+)
 - **Homebrew** (macOS) or your system package manager
+- **[Nerd Font](https://www.nerdfonts.com/)** - Required for Starship prompt icons. Install one via:
+  ```bash
+  brew install --cask font-fira-code-nerd-font   # or any other Nerd Font
+  ```
+  Then set it as your terminal's font.
 
 ### Installation
 

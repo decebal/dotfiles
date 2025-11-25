@@ -63,9 +63,16 @@ check_prerequisites() {
     log "Prerequisites check passed ✓"
 }
 
+# Check if symlink is correct
+is_correct_symlink() {
+    local link="$1"
+    local target="$2"
+    [ -L "$link" ] && [ "$(readlink "$link")" = "$target" ]
+}
+
 # Create backup of existing dotfiles
 backup_existing() {
-    log "Creating backup of existing dotfiles..."
+    log "Checking for files that need backup..."
 
     local files_to_backup=(
         "$HOME/.bashrc"
@@ -174,6 +181,11 @@ setup_shell() {
 setup_bash() {
     log "Setting up Bash configuration..."
 
+    if is_correct_symlink "$HOME/.bashrc" "$DOTFILES/bash/bashrc"; then
+        log "Bash configuration already correctly linked ✓"
+        return
+    fi
+
     # Remove existing file/link if it exists
     [ -e "$HOME/.bashrc" ] && rm -f "$HOME/.bashrc"
 
@@ -184,15 +196,18 @@ setup_bash() {
 setup_zsh() {
     log "Setting up Zsh configuration..."
 
-    # Remove existing files/links if they exist
-    [ -e "$HOME/.zshrc" ] && rm -f "$HOME/.zshrc"
+    if is_correct_symlink "$HOME/.zshrc" "$DOTFILES/zsh/zshrc"; then
+        log "Zsh configuration already correctly linked ✓"
+    else
+        # Remove existing files/links if they exist
+        [ -e "$HOME/.zshrc" ] && rm -f "$HOME/.zshrc"
 
-    ln -sf "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
+        ln -sf "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
+        log "Zsh configuration linked ✓"
+    fi
 
     # Check if zsh is installed
     if command -v zsh &> /dev/null; then
-        log "Zsh configuration linked ✓"
-
         # Offer to set as default shell
         if [ "$SHELL" != "$(which zsh)" ]; then
             read -p "Would you like to set Zsh as your default shell? [y/N]: " set_default
@@ -209,16 +224,29 @@ setup_zsh() {
 setup_vim() {
     log "Setting up Vim configuration..."
 
+    # Check if all vim symlinks are already correct
+    if is_correct_symlink "$HOME/.vim" "$DOTFILES/vim/vim-sources" && \
+       is_correct_symlink "$HOME/.vimrc" "$DOTFILES/vim/vimrc" && \
+       is_correct_symlink "$HOME/.gvimrc" "$DOTFILES/vim/gvimrc"; then
+        log "Vim configuration already correctly linked ✓"
+        return
+    fi
+
     read -p "Would you like to setup Vim configuration? [Y/n]: " setup_vim_choice
     if [[ ! "$setup_vim_choice" =~ ^[Nn]$ ]]; then
-        # Remove existing files/links
-        [ -e "$HOME/.vim" ] && rm -rf "$HOME/.vim"
-        [ -e "$HOME/.vimrc" ] && rm -f "$HOME/.vimrc"
-        [ -e "$HOME/.gvimrc" ] && rm -f "$HOME/.gvimrc"
-
-        ln -sf "$DOTFILES/vim/vim-sources" "$HOME/.vim"
-        ln -sf "$DOTFILES/vim/vimrc" "$HOME/.vimrc"
-        ln -sf "$DOTFILES/vim/gvimrc" "$HOME/.gvimrc"
+        # Only remove and recreate if not already correct
+        if ! is_correct_symlink "$HOME/.vim" "$DOTFILES/vim/vim-sources"; then
+            [ -e "$HOME/.vim" ] && rm -rf "$HOME/.vim"
+            ln -sf "$DOTFILES/vim/vim-sources" "$HOME/.vim"
+        fi
+        if ! is_correct_symlink "$HOME/.vimrc" "$DOTFILES/vim/vimrc"; then
+            [ -e "$HOME/.vimrc" ] && rm -f "$HOME/.vimrc"
+            ln -sf "$DOTFILES/vim/vimrc" "$HOME/.vimrc"
+        fi
+        if ! is_correct_symlink "$HOME/.gvimrc" "$DOTFILES/vim/gvimrc"; then
+            [ -e "$HOME/.gvimrc" ] && rm -f "$HOME/.gvimrc"
+            ln -sf "$DOTFILES/vim/gvimrc" "$HOME/.gvimrc"
+        fi
 
         log "Vim configuration linked ✓"
     else
@@ -230,18 +258,33 @@ setup_vim() {
 setup_git() {
     log "Setting up Git configuration..."
 
+    # Check if git configuration is already complete
+    local include_path=$(git config --global --get include.path 2>/dev/null || true)
+    local excludes_file=$(git config --global --get core.excludesfile 2>/dev/null || true)
+    local user_name=$(git config --global --get user.name 2>/dev/null || true)
+    local user_email=$(git config --global --get user.email 2>/dev/null || true)
+
+    if [ "$include_path" = "$DOTFILES/git/gitconfig" ] && \
+       [ "$excludes_file" = "$DOTFILES/git/gitignore_global" ] && \
+       [ -n "$user_name" ] && [ -n "$user_email" ]; then
+        log "Git configuration already complete ✓"
+        return
+    fi
+
     read -p "Would you like to setup Git configuration? [Y/n]: " setup_git_choice
     if [[ ! "$setup_git_choice" =~ ^[Nn]$ ]]; then
         # Backup existing gitconfig if it exists and isn't from our dotfiles
         if [ -f "$HOME/.gitconfig" ]; then
             if ! grep -q "dotfiles/git/gitconfig" "$HOME/.gitconfig" 2>/dev/null; then
-                cp "$HOME/.gitconfig" "$HOME/.gitconfig.backup"
-                info "Backed up existing .gitconfig to .gitconfig.backup"
+                if [ ! -f "$HOME/.gitconfig.backup" ]; then
+                    cp "$HOME/.gitconfig" "$HOME/.gitconfig.backup"
+                    info "Backed up existing .gitconfig to .gitconfig.backup"
+                fi
             fi
         fi
 
         # Check if gitconfig already has our configuration
-        if [ -f "$HOME/.gitconfig" ] && grep -q "dotfiles/git/gitconfig" "$HOME/.gitconfig" 2>/dev/null; then
+        if [ "$include_path" = "$DOTFILES/git/gitconfig" ]; then
             info "Git configuration already includes dotfiles settings"
         else
             # Add include directive instead of appending
@@ -249,17 +292,21 @@ setup_git() {
             log "Git configuration included via include.path ✓"
         fi
 
-        # Set global gitignore
-        git config --global core.excludesfile "$DOTFILES/git/gitignore_global"
-        log "Global gitignore configured ✓"
+        # Set global gitignore if not already set
+        if [ "$excludes_file" != "$DOTFILES/git/gitignore_global" ]; then
+            git config --global core.excludesfile "$DOTFILES/git/gitignore_global"
+            log "Global gitignore configured ✓"
+        else
+            info "Global gitignore already configured"
+        fi
 
         # Prompt for user details if not set
-        if [ -z "$(git config --global user.name)" ]; then
+        if [ -z "$user_name" ]; then
             read -p "Enter your Git username: " git_username
             git config --global user.name "$git_username"
         fi
 
-        if [ -z "$(git config --global user.email)" ]; then
+        if [ -z "$user_email" ]; then
             read -p "Enter your Git email: " git_email
             git config --global user.email "$git_email"
         fi
@@ -274,9 +321,9 @@ install_optional_tools() {
 
     echo ""
     echo "Would you like to install/check optional development tools?"
-    echo "  1) Node Version Manager (nvm)"
-    echo "  2) Python Version Manager (pyenv)"
-    echo "  3) Starship (prompt - already configured)"
+    echo "  1) Shell enhancements (starship, zoxide, fzf, fd, atuin)"
+    echo "  2) Node Version Manager (nvm)"
+    echo "  3) Python Version Manager (pyenv)"
     echo "  4) GitHub Copilot CLI (AI assistant)"
     echo "  5) All of the above"
     echo "  6) None"
@@ -285,21 +332,21 @@ install_optional_tools() {
 
     case $tools_choice in
         1)
-            check_nvm
+            check_shell_enhancements
             ;;
         2)
-            check_pyenv
+            check_nvm
             ;;
         3)
-            check_starship
+            check_pyenv
             ;;
         4)
             setup_github_copilot
             ;;
         5)
+            check_shell_enhancements
             check_nvm
             check_pyenv
-            check_starship
             setup_github_copilot
             ;;
         6)
@@ -309,6 +356,16 @@ install_optional_tools() {
             warning "Invalid choice, skipping optional tools"
             ;;
     esac
+}
+
+# Check and install shell enhancement tools
+check_shell_enhancements() {
+    log "Checking shell enhancement tools..."
+    check_starship
+    check_zoxide
+    check_fzf
+    check_fd
+    check_atuin
 }
 
 check_nvm() {
@@ -351,6 +408,76 @@ check_starship() {
         fi
     else
         log "Starship is already installed ✓"
+    fi
+}
+
+check_zoxide() {
+    if ! command -v zoxide &> /dev/null; then
+        read -p "Zoxide is not installed. Would you like to install it? [y/N]: " install_zoxide
+        if [[ "$install_zoxide" =~ ^[Yy]$ ]]; then
+            info "Installing zoxide..."
+            if command -v brew &> /dev/null; then
+                brew install zoxide
+                log "Zoxide installed successfully ✓"
+                info "The 'z' command will be available after restarting your shell"
+            else
+                info "Homebrew not found. Please install zoxide manually from: https://github.com/ajeetdsouza/zoxide#installation"
+            fi
+        fi
+    else
+        log "Zoxide is already installed ✓"
+    fi
+}
+
+check_fzf() {
+    if ! command -v fzf &> /dev/null; then
+        read -p "fzf (fuzzy finder) is not installed. Would you like to install it? [y/N]: " install_fzf
+        if [[ "$install_fzf" =~ ^[Yy]$ ]]; then
+            info "Installing fzf..."
+            if command -v brew &> /dev/null; then
+                brew install fzf
+                log "fzf installed successfully ✓"
+            else
+                info "Homebrew not found. Please install fzf manually from: https://github.com/junegunn/fzf#installation"
+            fi
+        fi
+    else
+        log "fzf is already installed ✓"
+    fi
+}
+
+check_fd() {
+    if ! command -v fd &> /dev/null; then
+        read -p "fd (fast find alternative, used by fzf) is not installed. Would you like to install it? [y/N]: " install_fd
+        if [[ "$install_fd" =~ ^[Yy]$ ]]; then
+            info "Installing fd..."
+            if command -v brew &> /dev/null; then
+                brew install fd
+                log "fd installed successfully ✓"
+            else
+                info "Homebrew not found. Please install fd manually from: https://github.com/sharkdp/fd#installation"
+            fi
+        fi
+    else
+        log "fd is already installed ✓"
+    fi
+}
+
+check_atuin() {
+    if ! command -v atuin &> /dev/null; then
+        read -p "Atuin (smart shell history) is not installed. Would you like to install it? [y/N]: " install_atuin
+        if [[ "$install_atuin" =~ ^[Yy]$ ]]; then
+            info "Installing atuin..."
+            if command -v brew &> /dev/null; then
+                brew install atuin
+                log "Atuin installed successfully ✓"
+                info "Run 'atuin register' or 'atuin login' to sync history across machines"
+            else
+                info "Homebrew not found. Please install atuin manually from: https://github.com/atuinsh/atuin#installation"
+            fi
+        fi
+    else
+        log "Atuin is already installed ✓"
     fi
 }
 
