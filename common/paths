@@ -29,7 +29,10 @@ export GOROOT_BOOTSTRAP=/usr/local/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # gvm (Go Version Manager) - load after GOPATH/GOROOT setup
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+# Skip in agent mode - GVM's cd hook causes issues in subshells where its internal functions aren't loaded
+if [[ -z "$AI_AGENT_CONTEXT" && -s "$HOME/.gvm/scripts/gvm" ]]; then
+    source "$HOME/.gvm/scripts/gvm"
+fi
 
 # rust/cargo - add to PATH if exists and not already present
 if [[ -d "$HOME/.cargo/bin" ]]; then
