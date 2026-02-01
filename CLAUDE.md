@@ -139,11 +139,10 @@ windsurf-check
 
 ## Important Development Notes
 
-1. **GVM Removed**: Go Version Manager has been completely removed due to compatibility issues. Use system Go or other version managers if needed.
-2. **Machine-specific configurations**: Must go in `local/` directory (gitignored for security)
-3. **Test changes**: Always test in both normal and agent modes before committing
-4. **PATH preservation**: Many tools depend on specific PATH entries - handle with care
-5. **Agent detection**: Automatic based on environment variables, no manual setup needed
+1. **Machine-specific configurations**: Must go in `local/` directory (gitignored for security)
+2. **Test changes**: Always test in both normal and agent modes before committing
+3. **PATH preservation**: Many tools depend on specific PATH entries - handle with care
+4. **Agent detection**: Automatic based on environment variables, no manual setup needed
 
 ## Version Control
 
