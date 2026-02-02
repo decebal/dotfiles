@@ -2,6 +2,13 @@
 # ZSH Configuration for AI Agent Mode (Cursor, GitHub Copilot, etc.)
 # Optimized for compatibility and minimal interference with AI tools
 
+# Unset GVM's cd hook if it was inherited from a parent shell
+# GVM's cd() function calls __gvm_is_function which doesn't exist in agent mode
+if typeset -f cd | grep -q "__gvm_is_function" 2>/dev/null; then
+    unset -f cd 2>/dev/null
+    unset -f __gvm_oldcd 2>/dev/null
+fi
+
 # Load local setup if exists
 if [ -f $DOTFILES/local/zsh-setup ]; then
 	. $DOTFILES/local/zsh-setup
